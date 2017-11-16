@@ -1,0 +1,10 @@
+{% if user.is_authenticated %}
+  <p>你已登录，欢迎你：<a href="#">{{ user.username }}</a></p>
+  <button class="btn btn-default"><a href="{% url 'customer_logout' %}">注销登录</a></button>
+{% else %}
+  <p>你还没有登录，请
+    <button class="btn btn-default"><a href="{% url 'login' %}">登录</a></button>
+    或者
+    <button class="btn btn-default"><a href="{% url 'users:register' %}">注册</a></button>
+  </p>
+{% endif %}

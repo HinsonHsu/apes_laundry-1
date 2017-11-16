@@ -1,0 +1,42 @@
+.navbar-default.navbar-fixed-top{
+    background-color: #0076ff;
+    z-index: 1;
+}
+.navbar-default.navbar-fixed-top a{
+    color: #ffffff;
+    font-size:15px;
+    z-index: 1;
+}
+.nav-top,.nav-btn{
+    text-align: center;
+    padding: 0px !important;
+    height: 50px;
+    line-height: 50px;
+}
+
+.nav-top:hover, .nav-btn:hover, .nav-btn:focus{
+    background:none !important;
+}
+
+.home-container{
+    margin-top: 51px;
+    margin-bottom: 51px;
+    padding-top:20px;
+}
+
+.category-item img{
+    height: 100px !important;
+}
+.category-item .caption{
+    text-align: center;
+}
+.icon-left-card {
+    float:left;
+    width: 12px;
+    height: 10px;
+    margin-top: -40px;
+    margin-left: 15px;
+    z-index: 2;
+    position:absolute;
+
+  }

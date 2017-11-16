@@ -1,0 +1,104 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>运动鞋</title>
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+
+    <!-- javascript -->
+    <script src="{% static 'products/js/catogory.js' %}"></script
+
+</head>
+
+<body>
+<div class="icon-left-card">
+    <a href="/products/index/"><img alt="" src="{% static 'products/images/left_icon.png' %}"></a>
+</div>
+<nav class="navbar navbar-default navbar-fixed-top container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-12">
+            <a href="#" class="nav-top">
+                <div id="title"></div>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid home-container">
+    <div class="row" id="categories">
+        <!-- <div class="col-xs-6">
+            <div class="thumbnail category-item">
+                <img src="images/运动鞋1.jpg">
+                <div class="caption">
+                    <h4>运动鞋1</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="thumbnail category-item">
+                <img src="images/运动鞋2.jpg">
+                <div class="caption">
+                    <h4>运动鞋2</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="thumbnail category-item">
+                <img src="images/运动鞋3.jpg">
+                <div class="caption">
+                    <h4>运动鞋3</h4>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-4 active">
+            <a href="/products/index" class="nav-btn">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                首页
+            </a>
+        </li>
+        <li class="col-xs-4">
+            <a href="#" class="nav-btn">
+                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                订单
+            </a>
+        </li>
+        <li class="col-xs-4">
+            <a href="/customer/index/" class="nav-btn">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                我的
+            </a>
+        </li>
+    </ul>
+</nav>
+{#    <script>#}
+{#        $(document).ready(function () {#}
+{#            loadData();#}
+{#        })#}
+{##}
+{#        function loadData() {#}
+{#            $('#categories').empty();#}
+{#            $.each(responseData_shoes.data, function (i, data) {#}
+{#                var $item = $('<div class="col-xs-6"><div class="thumbnail category-item"><img src="' + data.pic +#}
+{#                    '"><div class="caption"><h4>' + data.name + '</h4></div></div></div>');#}
+{#                $item.appendTo($('#categories'));#}
+{#            })#}
+{#        }#}
+{#    </script>#}
+</body>
+
+</html>

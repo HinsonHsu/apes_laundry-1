@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册界面</title>
+
+    <link rel="stylesheet" href="{% static 'customers/css/fontawesome/css/font-awesome.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'customers/css/log-css.css' %}" media="screen" type="text/css">
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'customers/js/fun.js' %}"></script>
+</head>
+
+<body>
+    <div class="background_user_log"></div>
+    <div class="more">
+        <div style="color:#Fff;background-color:#00dbf5;font:bolder;text-align:center">注册</div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+            <form class="middle-form">
+                <div class="form-group has-feedback">
+
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="input-group">
+
+                                <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="请输入手机号: " style="padding-right:0% " value="" id="phoneNum">
+
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-default btn-block" style="padding-left:0%"  id="btn_phone" >发送验证码 </button>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                        </span>
+                        <input id="checkCode" type="verification_code" class="form-control" placeholder="请输入验证码: ">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="log_bt">
+                            <p id="btn-register" class="btn-public" style="opacity:0.8"  >注册</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="tip_info">点击登录，即表示您同意用户协议</p>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

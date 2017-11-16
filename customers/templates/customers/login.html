@@ -1,0 +1,101 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="{% static 'customers/css/fontawesome/css/font-awesome.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'customers/css/style.css' %}" media="screen" type="text/css">
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'customers/js/login.js' %}"></script>
+    <style>
+        .login-page {
+            background-image: url({% static 'customers/images/247010.jpg' %}) !important;
+            background-repeat: no-repeat;
+
+        }
+
+        .checkCode-btn {
+            width: 30%;
+            height: 33px;
+        }
+
+    </style>
+
+</head>
+
+<body class="login-page">
+
+<div class="login-form">
+
+    <div class="login-content">
+
+        <div class="form-login-error">
+            <h3>Invalid login</h3>
+            <p>Enter <strong>demo</strong>/<strong>demo</strong> as login and password.</p>
+        </div>
+
+        <form action="" method="post" role="form" id="form_login">
+            {% csrf_token %}
+            <div class="form-group">
+
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </div>
+
+                    <input type="text" class="form-control" name="phoneNum" id="phoneNum" placeholder="电话号码"
+                           autocomplete="off" style="width: 68%;"/>
+                    <p id="btn-phone-code" class="btn btn-danger checkCode-btn">获取验证码</p>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-key"></i>
+                    </div>
+
+                    <input type="text" class="form-control" name="checkCode" id="checkCode" placeholder="验证码"
+                           autocomplete="off"/>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <p id ="btn-login" class="btn btn-primary btn-block btn-login">
+                    <i class="fa fa-sign-in"></i>
+                    登入
+                </p>
+                <p id= "btn-register" class="btn btn-success btn-block btn-login">
+                    <i class="fa fa-registered"></i>
+                    注册
+                </p>
+            </div>
+
+            <!-- Implemented in v1.1.4 -->
+            <div class="form-group">
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+</div>
+
+</body>
+</html>

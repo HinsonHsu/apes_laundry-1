@@ -1,0 +1,77 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+
+    <!-- javascript -->
+    <script src="{% static 'products/js/script.js' %}"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-12">
+            <a href="#" class="nav-top">海马洗衣，最专业的清洗</a>
+        </li>
+    </ul>
+
+</nav>
+<div class="container-fluid home-container">
+    <div id="categories" class="row">
+    </div>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-4 active">
+            <a href="/products/index" class="nav-btn">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                首页
+            </a>
+        </li>
+        <li class="col-xs-4">
+            <a href="#" class="nav-btn">
+                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                订单
+            </a>
+        </li>
+        <li class="col-xs-4">
+            <a href="/customer/index/" class="nav-btn">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                我的
+            </a>
+        </li>
+    </ul>
+</nav>
+{#<script>#}
+{#    $(document).ready(function () {#}
+{#        loadData();#}
+{#    })#}
+{##}
+{#    function loadData() {#}
+{#        $('#categories').empty();#}
+{#        $.each(responseData.data, function (i, data) {#}
+{#            var $item = $('<div class="col-xs-6"><div class="thumbnail category-item"><a href="' + data.label + '.html?id=' + data.id + '"><img src="' + data.pic +#}
+{#                '"></a><div class="caption"><h4>' + data.name + '</h4></div></div></div>');#}
+{#            $item.appendTo($('#categories'));#}
+{##}
+{#        })#}
+{#    }#}
+{#</script>#}
+</body>
+
+
+</html>

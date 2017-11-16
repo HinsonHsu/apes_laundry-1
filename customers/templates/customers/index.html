@@ -1,0 +1,184 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'customers/css/fontawesome/css/font-awesome.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    {#    <link rel="stylesheet" href="{% static 'customers/css/log-css.css' %}" media="screen" type="text/css">#}
+    <link rel="stylesheet" href="{% static 'customers/css/person_center.css' %}">
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'customers/js/fun.js' %}"></script>
+    <title>个人中心</title>
+</head>
+
+<body ondragstart="return false;" onselectstart="return false;">
+<div class="card">
+
+    <div class="row loginInfo">
+        <div class="col-xs-2">
+            <img src="{% static 'customers/images/seahiback.png' %}" class="logo_seahi">
+        </div>
+        <div class="col-xs-8">
+            {% if user.is_authenticated %}
+                <p>{{ user_phone }}</p>
+            {% else %}
+                <p>登陆</p>
+            {% endif %}
+        </div>
+        <div class="col-xs-2">
+            充值 <span class="go-card"></span>
+        </div>
+    </div>
+</div>
+
+<div class="wallet">
+    <p><img alt=" " src="{% static 'customers/images/My wallet.png' %}"></p>
+    <p class="wallet-word">我的钱包</p>
+</div>
+<div class="borderD"></div>
+<div class="wallet-types">
+    <div class="types">
+        <a href="#">
+            <p>
+                <span>0张</span>
+            </p>
+            <p>优惠券</p>
+        </a>
+    </div>
+    <div class="types">
+        <a href="#">
+            <p>
+                <span>￥0</span>
+            </p>
+            <p>余额</p>
+        </a>
+    </div>
+    <div class="types">
+        <a href="#">
+            <p>
+                <span>0张</span>
+            </p>
+            <p>e卡</p>
+        </a>
+    </div>
+</div>
+<div class="cardexplain">
+    <ul class="round operate navlist">
+        <li class="mobile-font">
+            <table class="icardTable">
+                <tbody>
+                <tr>
+                    <td style="border:0;width:42px;">
+                        <img alt="" src="{% static 'customers/images/Common _address.png' %}">
+                    </td>
+                    <td>
+                        <a href="#">
+                            <div class="list-titel no-img">
+                                常用地址
+                                <img alt="" src="{% static 'customers/images/rignt_icon.png' %}"
+                                     class="icon-right-card">
+                            </div>
+                        </a>
+                        <div class="borderD"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="border:0;width:42px;">
+                        <img alt="" src="{% static 'customers/images/question.png' %}">
+                    </td>
+                    <td style="position:relative">
+                        <a href="">
+                            <div class="list-titel no-img">
+                                常见问题
+                                <img alt="" src="{% static 'customers/images/rignt_icon.png' %}"
+                                     class="icon-right-card">
+                            </div>
+                        </a>
+
+                        <div class="borderD" style=" margin-bottom: -4px;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:0;width:42px;">
+                        <img alt="" src="{% static 'customers/images/user.png' %}">
+                    </td>
+                    <td style="position:relative">
+                        <a href="http://www.edaixi.com/m/xiaoehelper">
+                            <div class="list-titel no-img">
+                                用户协定
+                                <img alt="" src="{% static 'customers/images/rignt_icon.png' %}"
+                                     class="icon-right-card">
+                            </div>
+                        </a>
+                        <div class="borderD" style=" margin-bottom: -4px;"></div>
+                    </td>
+                </tr>
+                <tbody>
+                <tr>
+                    <td style="border:0;width:42px;">
+                    </td>
+                    <td>
+                        <div class="borderD"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img alt="" src="{% static 'customers/images/More.png' %}">
+                    </td>
+                    <td>
+                        <a href="more.html">
+                            <div class="list-titel no-img">
+                                更多
+                                <img alt="" src="{% static 'customers/images/rignt_icon.png' %}"
+                                     class="icon-right-card">
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+                </tbody>
+            </table>
+
+        </li>
+        <div class="tel-text">
+            <li>
+                <div><a href="tel:666-888-3154">客服 666-888-3154</a></div>
+            </li>
+        </div>
+        <div class="borderD2"></div>
+    </ul>
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-4 active">
+            <a href="/products/index" class="nav-btn">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                首页
+            </a>
+        </li>
+        <li class="col-xs-4">
+            <a href="#" class="nav-btn">
+                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                订单
+            </a>
+        </li>
+        <li class="col-xs-4">
+            <a href="/customer/index/" class="nav-btn">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                我的
+            </a>
+        </li>
+    </ul>
+</nav>
+</body>
+
+</html>
