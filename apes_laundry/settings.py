@@ -77,21 +77,13 @@ WSGI_APPLICATION = 'apes_laundry.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'test',
-    #     'HOST': '127.0.0.1',
-    #     'USER': 'root',
-    #     'PASSWORD': 'SXSBJD',
-    #     'OPTIONS': {'charset': 'utf8mb4'},
-    # },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'apes_laundry',
-        'HOST': '39.106.44.111',
-        'USER': 'online_laundry',
-        'PASSWORD': 'online_laundry',
-        'OPTIONS': {'charset': 'utf8'}
+        'NAME': 'test',
+        'HOST': '127.0.0.1',
+        'USER': 'root',
+        'PASSWORD': 'SXSBJD',
+        'OPTIONS': {'charset': 'utf8mb4'},
     },
     'apes_laundry': {
         'ENGINE': 'django.db.backends.mysql',
@@ -115,7 +107,7 @@ DATABASE_ROUTERS = ['apes_laundry.database_router.DatabaseAppsRouter']
 DATABASE_APPS_MAPPING = {
     # example:
     # 'app_name':'database_name',
-    'couriers': 'apes_laundry',
+    'couriers': 'aliyun',
 }
 
 # Password validation

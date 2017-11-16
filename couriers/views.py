@@ -154,11 +154,11 @@ def register(request):
 @csrf_exempt
 def logout(request):
     userlogout(request)
-    return HttpResponseRedirect('/curier/login/')
+    return HttpResponseRedirect('/couriers/login/')
 
 @csrf_exempt
 def test(request):
-    return render(request,'curiers/map.html')
+    return render(request,'couriers/map.html')
 
 class CurierForm(forms.Form):
     img1 = forms.FileField()
@@ -178,7 +178,7 @@ def upload(request):
             fobj.write(chrunk);
         fobj.close();
         return HttpResponse('upload ok')
-    return render(request, 'curiers/test.html')
+    return render(request, 'couriers/test.html')
 @csrf_exempt
 def test(request):
     if request.method == "POST":
@@ -187,9 +187,9 @@ def test(request):
             return HttpResponse('upload ok!')
     else:
         uf = CurierForm()
-    return render_to_response('curiers/register.html', {'uf': uf})
+    return render_to_response('couriers/register.html', {'uf': uf})
 
 @csrf_exempt
 def map(request):
-    return render(request, 'curiers/map.html')
+    return render(request, 'couriers/map.html')
 
