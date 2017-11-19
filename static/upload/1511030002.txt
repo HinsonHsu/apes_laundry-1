@@ -1,0 +1,49 @@
+2017-02-20：强大的文件搜索工具grep&&正则表达式(Global Regular Expression Print)
+	1.匹配行的开始^：
+		grep -e ^wirelessqa testgrep
+	2.匹配定行的结束$: 
+		grep -e wirelessqa$ testgrep
+	3.匹配一个非换行符的字符.: 
+		grep -e wireles.qa testgrep ‘wireles.qa'匹配wireles后接一个任意字符，然后是qa
+	4.匹配零个或多个先前字符* 
+		grep -e m*qa testgrep	’ *qa‘匹配所以一个或多个空格后紧跟qa的行
+	5.匹配一个指定范围内的字符[]:
+		grep -e [Ww]irelessqa testgrep
+	6.匹配一个不在指定范围内的额字符[^]
+		'[^a-fh-m]qa'匹配不包含a-f和h-m的一个字母开头，紧跟qa的行
+		grep-e [^a-fh-m]qa testgrep
+	7.标记匹配字符..
+		匹配'bxp'的行	grep -e bxp testgrep
+	8.匹配单词的开始\<
+		'\<wireles'匹配包含以wire开头的单词的行
+		grep -e '\<wire' testgrep
+	9.匹配单词的结束\>
+		‘blog\>'匹配包含以blog结尾的单词的行
+		grep -e 'blog\>' testgrep
+	10.连续重复字符x,m次x\{m\}
+		'm\{3\}'匹配包含连续三个m的行
+		grep -e 'm\{3\}' testgrep
+	11.连续重复字符x，至少m次x\{m,\}
+		'm\{2,\}'匹配至少连续有2个m的行
+		grep -e 'm\{2,\} testgrep
+	12.连续重复字符x,至少m次，不多于n次x\{m,n\}
+		'm\{2,3\}'匹配连续2-3个m的行
+		grep -e 'm\{2,3\}' testgrep
+	13.匹配一个文字和数字字符，也就是[A-Za-z0-9] \w
+		'b\w*p'匹配以b后跟零个或多个文字或数字字符，然后是p。
+		grep -e 'b\w*p' testgrep
+	14.w的反置形式，匹配一个非单词字符\Ww
+		匹配b后面为非[A-Za-z0-9]的行
+		grep -e 'b\W' testgrep
+	15.单词锁定符\b
+		'\bmqa\b'只匹配mqa，即只能是mqa这个单词，两边均为空格。u
+		grep -e '\bmqa\b' testgrep
+		单个\b也可以用
+		grep -e 'mqa\b' testgrep
+	16.只包某个字符的行^字符$
+		grep -e '^mmqa$' testgrep
+	17.对用户、用户组及其他用户组成员有可执行权限的目录
+		ls -al | grep '^d..x..x..x'
+	18.只显示非目录的文件ls -l | grep ^[^d]
+		ls -al | grep ^[^d]
+	

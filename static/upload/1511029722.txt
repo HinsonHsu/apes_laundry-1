@@ -1,0 +1,104 @@
+http协议
+一.URL
+二.http请求：请求行、消息报头、请求正文
+	请求行：Method Request-URI HTTP-Version CRLF
+		Method:请求方法
+		Request-URI：统一资源标识符
+		HTTP-Version：请求的HTTP协议版本
+		CRLF：表示回车和换行
+	消息报头：
+三.http响应：状态行、消息报头、响应正文
+	状态行：HTTP-Version Status-Code Reason-Phrase CRLF
+		HTTP-Version:服务器HTTP协议的版本
+		Staus-Code:表示服务器发挥的响应状态代码
+		Reason-Phrase表示状态代码的文本描述
+		
+		
+Struts2框架的意义：
+	更便捷的开发：
+		1.自动封装表单提交数据：属性驱动、模型驱动
+		2.便捷的实现上传文件：FileUpload
+		3.使网站通用与国内外：国际化
+		4.通过配置完成表单验证：校验器
+		5.强大的标签库：Struts2标签库、OGNL标签库
+	更科学的管理
+		1.使用xml文件管理程序文件对应关系
+	更安全的操作
+		1.安全的线程机制：每个action都是独立的
+		2.防止数据重复提交：token令牌机制
+		3.异常处理机制：通过配置来完成，更便于管理
+	先进的编程思路
+		1.面向切面编程：拦截器
+		
+	Http请求流转流程
+		1.Http请求流转流程
+		2.web.xml
+		3.struts.xml
+		4.前置拦截器：执行相关action前置拦截器，例如封装数据、上传文件等等
+		5.xxx.java(action)：处理请求的数据，执行类似servlet的操作，（接受数据，持久化数据）返回一个字符串标示结果页
+		6.后置拦截器：执行相关action后置拦截器，例如异常等信息拦截，日志信息处理
+		7.Struts.xml根据类返回的字符串匹配，跳转到相应的结果页面。
+		8.xxx.jsp:结果页面
+		
+Hibernate: 持久化框架 Object Mapping Relation 分层：表示层、业务层、持久层、数据层。
+	ORM框架的作用：
+		将对象数据保存到关系数据库的表中
+		将关系数据库表中数据读入到对象中
+	ORM的优势：
+		提高生产率
+		可维护性
+		更好性能
+		厂商独立性
+	ORM的产品
+		Hibernate
+		TopLink---Oracle
+		Apache OJB
+		Mybatis
+	Hibernate：
+		优秀、成熟的ORM框架
+		强大的对象和关系数据库映射
+		强大的查询功能
+		
+		操作过程：
+			创建SessionFactory实例
+			获取Session实例
+			开启事务
+			使用Session实例进行持久化操作
+			提交事务
+			关闭Session
+			
+		Configuration类负责管理Hibernate的配置信息作并根据配置信息启动Hibernate。
+		Hibernate配置的两个方法：属性文件、XML文件
+		SessionFactory实例对应一个数据存储源，SessionFactory的特点
+			线程安全
+			重量级
+		Session接口
+			Session(持久化管理器),Session的特点：
+				线程不安全
+				轻量级的
+				Session被称为Hibernate的一级缓存
+				Session通过SessionFactory打开
+				它与Web层的HttpSession没有管理
+		Transaction接口是Hibernate数据库事务接口，它包括：JDBC API、JTA
+			Hibernate进行持久化操作时(CRUD)必须进行事务控制
+		Query和Criteria接口
+			Query和Criteria接口都是Hibernate的查询接口。
+				Query包装了一个HQL(Hibernate Query Language)查询语句
+				Criteria接口擅长于执行动态查询
+	Hibernate工作机制
+	1.启动Hibernate
+	2.创建Configuration实例，初始化该实例中的所有变量
+	3.加载Hibernate.cfg.xml文件中的mapping节点配置并加载xxx.hbm.xml文件至该实例
+	4.利用上面创建的Configuration实例构建一个SessionFactory实例
+	5.由上面得到的SessionFactory实例创建连接
+	6.由上面得到的Session实例创建事务操作接口Transaction的实例
+	7.通过Session接口提供的各种方法操纵对数据库的访问
+	8.提交数据库操作结果(tx.commint())
+	9.关闭Session(s.close())
+	
+SSH 
+	Struts2  控制上
+	Spring   分层架构
+	Hibernate  对象关系映射
+	
+	web浏览器	表示层  ApplicationContext 业务层 DAO 数据层	数据库

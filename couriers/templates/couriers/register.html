@@ -8,75 +8,44 @@
     <title>海马洗衣 取送端</title>
 
     <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'curiers/css/registerStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'curiers/css/loginStyle.css' %}">
     <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript"
-            src="http://api.map.baidu.com/api?v=2.0&ak=MoAONuI9dwZQ3PM9SmOfLPLpAdQkmlXy"></script>
-    <script src="{% static 'curiers/js/registerJs.js' %}"></script>
-
+	<script language="JavaScript" src="{% static 'curiers/js/loginJs.js' %}"></script>
 </head>
 
 <body>
-<nav class="title-color title-text container-fluid">
-    <ul class="nav row">
-        <li class="col-xs-12">
-            <a class="title-format">注册</a>
-        </li>
-    </ul>
-</nav>
+    <nav class="title-color title-text container-fluid">
+        <ul class="nav row">
+            <li class="col-xs-12">
+                <a class="title-format">登录</a>
+            </li>
+        </ul>
+    </nav>
+	
+  <div class="login">
+	<div class="login-background" style="background: url({% static 'curiers/images/Hippocampus.png' %}) repeat-x center center;"></div>
+	   <div class="input-group form-group"> 
+           <span class="input-group-addon" id="sizing-addon4">
+	          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	       </span>	
+           <input id="phoneNum" type="text" class="form-control" maxlength="11" placeholder="请输入手机号码" style="padding-right:0% "/>  
+           <span class="input-group-btn">  
+              <button id="btn-phone-code"class="btn btn-primary" onclick="checkMobile(phoneNum.value);">发送验证码</button>
+            </span>  
+        </div>  
+	
 
-
-<div class="register">
-    <div class="register-background"></div>
-    <div class="input-group form-group">
+    <div class="input-group form-group">  
         <span class="input-group-addon">
-            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
         </span>
-        {#        <input id="r-result" type="text" class="form-control" placeholder="请输入工作地址" style="padding-right:0% "/>#}
-        {#        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>#}
-        <div id="l-map"></div>
-        <div id="r-result"><input type="text" class="form-control" placeholder="请输入工作地址" id="suggestId" size="20"
-                                  value="百度" style="padding-right:0% "/></div>
-        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-    </div>
-    <div class="form-group">
-        <label style="font-size:18px">取送范围:</label>
-        <div class="col-sx-8">
-            <select id="takeAndDelivety" name="takeAndDelivety" type="text" class="form-control select2"
-                    placeholder="1公里内">
-                <option>1公里内</option>
-                <option>2公里内</option>
-                <option>3公里内</option>
-            </select>
-        </div>
-    </div>
-    <form method="post" action="/courier/upload/" enctype="multipart/form-data" >
+        <input id="checkCode" type="text" class="form-control" maxlength="4" placeholder="请输入验证码" style="padding-right:0% "/>
+    </div>  
 
-    <input id="idcard" type="file" name="idcard" style="display: none;" >
-    <label style="font-size:18px">请上传身份证</label>
-    <div class="input-group form-group">
-        <input id="idcardPhotoCover" type="text" class="form-control " style="padding-right:0% "/>
-        <span class="input-group-btn">
-              <div id="btn_idcard" class="btn btn-primary ">选择文件</div>
-            </span>
-
-    </div>
-
-    <input id="health" type="file" name="health" style="display: none;">
-    <label style="font-size:18px">请上传健康证明</label>
-    <div class="input-group form-group">
-        <input id="healthPhotoCover" type="text" class="form-control input-large" style="padding-right:0% "/>
-        <span class="input-group-btn">
-              <div id="btn_health" class="btn btn-primary " onclick="$('input[id=health]').click();">选择文件</div>
-            </span>
-    </div>
-
-    <center>
-        <button type="submit" id="bind-btn" class="btn-register">注册</button>
-    </center>
-    </form>
-</div>
+	
+{#	<center><button id="login-btn" class="btn-login">登录</button></center>#}
+	<center><button id="regiter-btn" class="btn-register">注册</button></center>
+  </div>
 </body>
-
 </html>

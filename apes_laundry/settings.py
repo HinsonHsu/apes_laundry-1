@@ -77,13 +77,21 @@ WSGI_APPLICATION = 'apes_laundry.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'test',
+    #     'HOST': '127.0.0.1',
+    #     'USER': 'root',
+    #     'PASSWORD': 'SXSBJD',
+    #     'OPTIONS': {'charset': 'utf8mb4'},
+    # },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
-        'HOST': '127.0.0.1',
-        'USER': 'root',
-        'PASSWORD': 'SXSBJD',
-        'OPTIONS': {'charset': 'utf8mb4'},
+        'NAME': 'apes_laundry_2',
+        'HOST': '39.106.44.111',
+        'USER': 'online_laundry',
+        'PASSWORD': 'online_laundry',
+        'OPTIONS': {'charset': 'utf8'}
     },
     'apes_laundry': {
         'ENGINE': 'django.db.backends.mysql',

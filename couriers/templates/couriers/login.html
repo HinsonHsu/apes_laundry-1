@@ -24,14 +24,14 @@
     </nav>
 	
   <div class="login">
-	<div class="login-background"></div>
+	<div class="login-background" style="background: url({% static 'curiers/images/Hippocampus.png' %}) repeat-x center center;"></div>
 	   <div class="input-group form-group"> 
            <span class="input-group-addon" id="sizing-addon4">
 	          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 	       </span>	
            <input id="phoneNum" type="text" class="form-control" maxlength="11" placeholder="请输入手机号码" style="padding-right:0% "/>  
            <span class="input-group-btn">  
-              <button id="btn_verification_code"class="btn btn-primary" onclick="checkMobile(phoneNum.value);">发送验证码</button>  
+              <button id="btn-phone-code"class="btn btn-primary">发送验证码</button>
             </span>  
         </div>  
 	
@@ -45,7 +45,7 @@
 
 	
 	<center><button id="login-btn" class="btn-login">登录</button></center>
-	<center><button id="regiter-btn" class="btn-register">注册</button></center>
+{#	<center><button id="regiter-btn" class="btn-register">注册</button></center>#}
   </div>
 </body>
 </html>

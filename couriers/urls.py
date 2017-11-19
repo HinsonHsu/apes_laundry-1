@@ -8,7 +8,5 @@ urlpatterns = [
 
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^register/$', views.register, name='register'),
-    url(r'^test/$', views.test, name='test'),
-    url(r'^map/$', views.map, name='map'),
     url(r'^upload/$', views.upload, name='upload'),
 ]
