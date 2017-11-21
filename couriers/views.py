@@ -132,7 +132,7 @@ class CurierForm(forms.Form):
     img1 = forms.FileField()
     img2 = forms.FileField()
 @csrf_exempt
-@login_required_courier()
+# @login_required_courier()
 def upload(request):
     from couriers.models import Courier
     if request.method == 'POST':

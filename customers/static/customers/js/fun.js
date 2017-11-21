@@ -188,7 +188,7 @@ $(document).ready(function () {
             success: function (data) {
                 // $("#checkCode").val(data.code)
                 if (data.result == "success") {
-                    console.log("res:"+data.result)
+                    console.log("res:" + data.result)
                 } else {
                     alert(data.errMsg)
                 }

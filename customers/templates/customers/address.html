@@ -1,0 +1,101 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'customers/css/address.css' %}">
+
+    <!-- javascript -->
+    {#    <script src="{% static 'products/js/script.js' %}"></script>#}
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=MoAONuI9dwZQ3PM9SmOfLPLpAdQkmlXy"></script>
+    <script src="{% static 'customers/js/address.js' %}"></script>
+</head>
+<div class="icon-left-card">
+    <a href="/customer/index/"><img alt="" src="{% static 'products/images/left_icon.png' %}"></a>
+</div>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-12">
+            <a href="#" class="nav-top">地址管理</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid home-container">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <form role="form" action="/customer/address/" method="POST">
+            <div>
+                <label for="name">地址</label>
+                <div id="l-map"></div>
+                <div id="r-result"><input type="text" class="form-control" placeholder="请输入地址" name="address"
+                                          id="suggestId" size="20"
+                                          value="百度" style="padding-right:0% "/></div>
+                <div id="searchResultPanel"
+                     style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+            </div>
+
+
+            {#            <div class="form-group">#}
+            {#                <label for="name">地址</label>#}
+            {#                <input type="text" class="form-control" id="name"#}
+            {#                       placeholder="请输入详细地址"></input>#}
+            {#            </div>#}
+            <div class="form-group">
+                <label for="name">门牌号</label>
+                <input type="text" class="form-control" id="door_number" name="door_number"
+                       placeholder="请输入门牌号"></input>
+            </div>
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" class="form-control" id="name" name="name"
+                       placeholder="请输入姓名"></input>
+            </div>
+            <div class="form-group">
+                <label for="tel">电话号码</label>
+                <input type="text" class="form-control" id="phone" name="phone"
+                       placeholder="请输入您的电话号码"></input>
+            </div>
+            <div>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="option1" checked>先生
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="option2">女士
+                </label>
+            </div>
+            <center>
+                <button type="submit" id="bind-btn" class="btn-submit">保存</button>
+            </center>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    var res = [{{ res|safe }}]
+    customer_address = ""
+    if (res.length > 0){
+{#        $("#suggestId").val(res[0].address)#}
+        customer_address = res[0].address
+        $("#door_number").val(res[0].door_number)
+        $("#name").val(res[0].name)
+        $("#phone").val(res[0].phone)
+    }
+
+    console.log(res)
+</script>
+
+</html>

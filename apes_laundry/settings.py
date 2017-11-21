@@ -93,14 +93,14 @@ DATABASES = {
         'PASSWORD': 'online_laundry',
         'OPTIONS': {'charset': 'utf8'}
     },
-    'apes_laundry': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test2',
-        'HOST': '127.0.0.1',
-        'USER': 'root',
-        'PASSWORD': 'SXSBJD',
-        'OPTIONS': {'charset': 'utf8'}
-    },
+    # 'apes_laundry': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'test2',
+    #     'HOST': '127.0.0.1',
+    #     'USER': 'root',
+    #     'PASSWORD': 'SXSBJD',
+    #     'OPTIONS': {'charset': 'utf8'}
+    # },
     'aliyun': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'apes_laundry',

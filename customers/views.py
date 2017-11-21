@@ -12,6 +12,9 @@ import json
 from users.models import User
 from aliyun_msg.models import PhoneCaptcha
 from aliyun_msg.aliyun_msg import send_phoneCode, verify_phoneCode
+from .models import CustomerAddress
+
+
 # Create your views here.
 USER_TYPE = 1 #1 表示用户端
 USER_LABEL = "customer_"
@@ -118,3 +121,52 @@ def logout(request):
 @csrf_exempt
 def test(request):
     return render(request,"customers/test.html")
+
+@csrf_exempt
+def address(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        address  = request.POST.get('address')
+        door_number = request.POST.get('door_number')
+        # sex = request.POST.get('sex')
+        sex = True
+        try:
+            customer_address = CustomerAddress.objects.filter(user_id=request.user.id)[0]
+            customer_address.name = name
+            customer_address.phone = phone
+            customer_address.door_number = door_number
+            customer_address.sex = sex
+            customer_address.save()
+        except IndexError:
+            customer_address = CustomerAddress(name=name, phone=phone, address=address, door_number=door_number, sex=sex)
+            customer_address.user_id = request.user.id
+            customer_address.save()
+
+        return HttpResponseRedirect('/customer/index/')
+    if request.method == "GET":
+        user_id = request.user.id
+        l =  CustomerAddress.objects.filter(user_id=user_id)
+        res = {}
+        if len(l)> 0 :
+            cuAddress = l[0]
+            res['result'] = "sucess"
+            res['name'] = cuAddress.name
+            res['phone'] = cuAddress.phone
+            res['address'] = cuAddress.address
+            res['door_number'] = cuAddress.door_number
+        res = json.dumps(res)
+        return render(request, 'customers/address.html',{"res":res})
+@csrf_exempt
+def customer_address(request):
+    user_id = request.user.id
+    cuAddress = CustomerAddress.objects.filter(user_id=user_id)[0]
+    res = {}
+    res['result'] = "sucess"
+    res['name'] = cuAddress.name
+    res['phone'] = cuAddress.phone
+    res['address'] =cuAddress.address
+    res['door_number'] = cuAddress.door_number
+    res = json.dumps(res)
+    print res.decode("unicode-escape")
+    return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
