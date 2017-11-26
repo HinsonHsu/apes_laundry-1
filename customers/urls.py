@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'^customer_address/$', views.customer_address, name='customer_address'),
 
 
-
+    url(r'^my_login/$', views.my_login, name='my_test'),
     url(r'^test/$', views.test, name='test'),
 ]

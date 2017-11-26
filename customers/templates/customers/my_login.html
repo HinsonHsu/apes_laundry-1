@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'restaurants/img/favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'restaurants/img/favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'restaurants/img/favicon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'restaurants/img/favicon-114x114.png' %}">
+
+    <link rel='stylesheet' href='{% static 'restaurants/css/assert/OpenSans.css' %}'>
+
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'restaurants/css/login.css' %}">
+
+
+    <!--[if lt IE 9]>
+	<script src="{% static 'restaurants/js/assert/respond.min.js' %}"></script>
+	<![endif]-->
+    <title>一克商家端</title>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+
+            <form action="{% static '/customer/my_login/' %}" class="fh5co-form" method="post">
+                {% csrf_token %}
+                <h2>登录</h2>
+                {% if form.errors %}
+                    <p class="text-danger">用户名或密码不匹配，请重新登录</p>
+                {% endif %}
+                {% if next %}
+                    {% if user.is_authenticated %}
+{#                        <p class="text-danger">你没有权限访问页面,为了访问，请切换到更高权限的用户</p>#}
+                    {% else %}
+                        <p class="text-danger"></p>
+                    {% endif %}
+                {% endif %}
+                <div class="form-group">
+                    <label for="username" class="sr-only">手机号</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="手机号" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">密码</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="密码" autocomplete="off" required>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}"/>
+{#                <div class="form-group">#}
+{#                    <p><a href="/restaurants/register">一克商家入驻</a>#}
+                        {#| <a href="forgot.html">忘记密码</a>#}
+{#                    </p>#}
+{#                </div>#}
+                 <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <img height="30px" src="/static/upload/234.png">
+                                </div>
+                                <input style="height: 50px" type="text" name="verify_code" class="form-control" placeholder="验证码">
+                                <input  type="hidden" name="verify_code_key"  >
+                            </div>
+                        </div>
+                <div class="form-group">
+                    <input type="submit" value="登录" class="btn btn-primary">
+                </div>
+            </form>
+            <!-- END Sign In Form -->
+
+        </div>
+    </div>
+
+</div>
+
+<!-- jQuery -->
+<script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+</body>
+</html>
+
