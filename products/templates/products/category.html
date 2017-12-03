@@ -36,31 +36,13 @@
     </ul>
 </nav>
 <div class="container-fluid home-container">
+    <select id="address-select" onchange="changeAdd(this.value)" style="margin-left: 80%;margin-bottom: 10px">
+        {% for i in addressList %}
+            {{ i }}
+            <option value={{ i.id }}>{{ i.name }}</option>
+        {% endfor %}
+    </select>
     <div class="row" id="categories">
-        <!-- <div class="col-xs-6">
-            <div class="thumbnail category-item">
-                <img src="images/运动鞋1.jpg">
-                <div class="caption">
-                    <h4>运动鞋1</h4>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="thumbnail category-item">
-                <img src="images/运动鞋2.jpg">
-                <div class="caption">
-                    <h4>运动鞋2</h4>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="thumbnail category-item">
-                <img src="images/运动鞋3.jpg">
-                <div class="caption">
-                    <h4>运动鞋3</h4>
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom container-fluid">

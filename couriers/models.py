@@ -17,8 +17,8 @@ class Courier(models.Model):
     city_id = models.IntegerField(null=True)
     is_locked = models.BooleanField(default=False)
     is_checked = models.BooleanField(default=False)
-    created_at = models.DateTimeField(default=timezone.now())
-    updated_at = models.DateTimeField(default=timezone.now())
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     user_back_id = models.IntegerField(null=True)
 
     class Meta:

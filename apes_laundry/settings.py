@@ -116,6 +116,8 @@ DATABASE_APPS_MAPPING = {
     # example:
     # 'app_name':'database_name',
     'couriers': 'aliyun',
+    'products': 'aliyun',
+    'customers': 'aliyun',
 }
 
 # Password validation

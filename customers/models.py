@@ -12,5 +12,5 @@ class CustomerAddress(models.Model):
     door_number = models.CharField(max_length=20)
     user_id = models.IntegerField()
     class Meta:
-        app_label = 'couriers'
+        app_label = 'customers'
         db_table = 'customeraddress'

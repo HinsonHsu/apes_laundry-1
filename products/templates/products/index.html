@@ -31,6 +31,11 @@
 
 </nav>
 <div class="container-fluid home-container">
+    <select id="address-select" onchange="changeAdd(this.value)" style="margin-left: 80%;margin-bottom: 10px">
+        {% for i in addressList %}
+            <option onclick="changeAdd({{ i.id }})" value={{ i.id }}>{{ i.name}}</option>
+        {% endfor %}
+    </select>
     <div id="categories" class="row">
     </div>
 </div>

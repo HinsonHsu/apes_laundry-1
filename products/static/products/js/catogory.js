@@ -2,17 +2,20 @@
  * Created by H1nson on 2017/11/5.
  */
 $(document).ready(function () {
-    getData();
+    getData(3);
 
 })
-function getData() {
+function changeAdd(city_id) {
+    getData(city_id)
+}
+function getData(city_id) {
     var category_id = getUrlParam('id');
-    console.log("categoryid:" + category_id)
+    console.log("categoryid:" + category_id + "city_id:"+city_id)
     $.ajax({
         type: "GET",
         url: "/products/products_by_category/",
         dataType: 'json',
-        data: {category_id: category_id},
+        data: {category_id: category_id, city_id: city_id},
         success: function (res) {
             console.log("receive:" + res.result);
             console.log("receive:" + res.category);
@@ -30,7 +33,7 @@ function loadData(responseData) {
     $('#categories').empty();
     $.each(responseData.data, function (i, data) {
         var $item = $('<div class="col-xs-6"><div class="thumbnail category-item"><img src="' + "http://oyf9q4qzp.bkt.clouddn.com/" + data.logo +
-            '"><div class="caption"><h4>' + data.name + '</h4></div></div></div>');
+            '"><div class="caption"><h4>' + data.name + '</h4></div>'+'<div class="price"><h5>'+data.price+'</h5></div>'+'</div></div>');
         $item.appendTo($('#categories'));
     })
 }

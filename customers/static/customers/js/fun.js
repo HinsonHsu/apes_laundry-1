@@ -179,6 +179,23 @@ $(document).ready(function () {
         if (validatemobile(phone) == false) {
             return false
         }
+        var countdown = 60
+        var interval = setInterval(function () {
+            settime()
+        }, 1000)
+
+        function settime() {
+            if (countdown == 0) {
+                clearInterval(interval)
+                $("#btn_phone").attr("disabled", false);
+                $("#btn_phone").text("发送验证码");
+            } else {
+                $("#btn_phone").attr("disabled", true);
+                $("#btn_phone").text("(" + countdown + ")s重新发送");
+                countdown--;
+            }
+        }
+
         console.log("sended:" + phone)
         $.ajax({
             type: "POST",
@@ -190,6 +207,7 @@ $(document).ready(function () {
                 if (data.result == "success") {
                     console.log("res:" + data.result)
                 } else {
+                    clearInterval(interval)
                     alert(data.errMsg)
                 }
 

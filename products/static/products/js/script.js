@@ -1,11 +1,15 @@
 $(document).ready(function () {
-    getData();
+    getData(3);
 
 })
-function getData() {
+function changeAdd(city_id) {
+    getData(city_id)
+}
+function getData(city_id) {
     $.ajax({
         type: "GET",
         url: "/products/products_all/",
+        data: {city_id: city_id},
         dataType: 'json',
         success: function (res) {
             console.log("receive:" + res.result);
