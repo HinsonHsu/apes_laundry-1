@@ -51,7 +51,7 @@ class Categories_cities(models.Model):
     city_id = models.BigIntegerField()
     category_id = models.BigIntegerField()
     class Meta:
-        app_label = 'prodcuts'
+        app_label = 'products'
         db_table = 'categories_cities'
 class Cities(models.Model):
     name = models.CharField(max_length=255)

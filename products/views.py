@@ -18,6 +18,8 @@ def index(request):
 def category(request):
     addresses = getCities()
     return render(request, "products/category.html",{"addressList": addresses})
+def cart(request):
+    return render(request, 'products/ship_cart.html')
 
 @csrf_exempt
 def categories_all(request):
@@ -38,15 +40,20 @@ def categories_all(request):
     return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
 
 def productsById(request):
+    from .service import check_category_and_city
     category_id = request.GET.get('category_id')
     city_id = request.GET.get('city_id')
     print category_id, city_id
     result = {}
-    products = get_products_by_id(category_id)
-    products = add_price_to_products(products, city_id)
+    if check_category_and_city(category_id,city_id):
+        products = get_products_by_id(category_id)
+        products = add_price_to_products(products, city_id)
+        result["data"] = products
+    else:
+        result["data"] = []
     result["result"] = "success"  # 1成功
     result["code"] = 1
-    result["data"] = products
+
     result['category'] = get_category_by_id(category_id)[0]['name']
     res = json.dumps(result)
     print res.decode("unicode-escape")

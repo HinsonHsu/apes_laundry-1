@@ -1,8 +1,15 @@
 $(document).ready(function () {
-    getData(3);
-
+    city_id = sessionStorage.getItem("city_id")
+    if(city_id==null){
+        getData(3);
+        $("#address-select").val(3)
+    }else{
+        $("#address-select").val(city_id)
+        getData(city_id);
+    }
 })
 function changeAdd(city_id) {
+    sessionStorage.setItem("city_id", city_id)
     getData(city_id)
 }
 function getData(city_id) {

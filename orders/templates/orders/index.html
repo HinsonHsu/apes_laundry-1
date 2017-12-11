@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="jquery.min.js"></script>
+    <meta name="Author" content="npc-guangming">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'orders/css/order.css' %}">
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <title>我的订单</title>
+</head>
+
+<body>
+<div id="header">
+    <ul>
+    </ul>
+</div>
+<div id="wrapper">
+    <ul>
+    </ul>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-4 active">
+            <a href="/products/index" class="nav-btn">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                首页
+            </a>
+        </li>
+        <li class="col-xs-4">
+            <a href="#" class="nav-btn">
+                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                订单
+            </a>
+        </li>
+        <li class="col-xs-4">
+            <a href="/customer/index/" class="nav-btn">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                我的
+            </a>
+        </li>
+    </ul>
+</nav>
+<script type="text/javascript">
+    $(function () {
+        var mhight = $("#wrapper").outerHeight() + 50;
+        $("#wrapper").css("height", mhight + "px");
+        Refresh();
+    })
+
+    var nomal_color = "gray";
+    var shit_color = "#acd000";
+    var list = new Array("未付款", "待取货", "已完成");
+    addHeader(list);
+
+    function addHeader(list) {
+        var headerHtml = "";
+        for (var i = 0; i < list.length; i++) {
+            headerHtml += "<li value=" + i + "><div>" + list[i] + "</div></li>"
+        }
+        $("#header ul").empty().append(headerHtml);
+        $("#header ul li").css("width", 100 / list.length + "%");
+        $("#header ul li").click(function () {
+            $(this).css("color", shit_color);
+            $(this).css("border-color", shit_color);
+            $(this).siblings().css("color", nomal_color);
+            $(this).siblings().css("border-color", "white");
+            ;
+        })
+    }
+
+    function order() {
+        this.picture = "/img/1.png";
+        this.price = "6.6";
+        this.count = "1";
+        this.orderNum = "0021000827095"
+    }
+    var order1 = new order();
+    var orderArr = new Array(order1, order1, order1, order1, order1);
+    var orderHtml = ""
+    for (var i = 0; i < orderArr.length; i++) {
+        orderHtml += "<li><div class='orderNum'>订单号:" + orderArr[i].orderNum + "<span>已完成</span></div><div class='imglist'><img src=" + orderArr[i].picture + "></div><div class='orderMsg'>合计" + orderArr[i].price + "元<span>已评论</span></div></li>"
+    }
+
+    $("#wrapper ul").empty().append(orderHtml);
+
+    refresher.init({
+        id: "wrapper",
+        pullDownAction: Refresh,
+        pullUpAction: Load
+    });
+    var generatedCount = 0;
+
+    function Refresh() {
+        setTimeout(function () {
+            wrapper.refresh();
+        }, 1000);
+
+    }
+
+    function Load() {
+        setTimeout(function () {
+
+            wrapper.refresh();
+
+        }, 1000);
+    }
+</script>
+</body>
+
+</html>

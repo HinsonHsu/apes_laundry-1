@@ -1,0 +1,139 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>购物车</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="aplus-terminal" content="1">
+    <link rel="stylesheet" href="{% static 'products/css/ship_cart.css' %}"/>
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'products/js/data.js' %}"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top container-fluid" style="height: 50px; background-color: #0a93fa">
+    <div class="icon-left-card" style="width: 12px; height: 10px; margin-left: 10px;">
+        <a href="#" onClick="javascript :history.back(-1);"><img alt=""
+                                                                 src="{% static 'products/images/left_icon.png' %}" style="margin-top: 10px"></a>
+    </div>
+    <ul class="nav row">
+        <li class="col-xs-12">
+            <a href="#" class="nav-top">
+                <div id="title"></div>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div>
+    <form id="R_cartForm" method="post" target="_self">
+        <input type="hidden" name="tpId" value="725677994">
+        <div id="R_Main">
+            <div class="order-list">
+                <div class="grid-shop" id="shop725677994">
+                    <div class="grid-shop-hd">
+                        <div class="total-shop">
+                            <a class="order-select shop-select">
+                                <div class="icon">
+                                </div>
+                                <p class="title">
+                                    全选
+                                </p>
+                            </a>
+                            <div class="total-right">
+                                <p class="empty_product">清空</p>
+                                <p class="hide clear_product">删除</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bundles_725677994" class="grid-bundle grid-bundle-SM_725677994 grid-bundle-shop">
+                        <div class="grid-main" id="cart-list">
+                            {#                            <div id="order3222429225" class="grid-order grid-order-selected">#}
+                        </div>
+                        <script>
+                            var cart_data = []
+                            var totalPrice = 0
+                            $(document).ready(function () {
+                                loadData1();
+                            })
+
+                            function loadData1() {
+                                cart_data = JSON.parse(localStorage.getItem("cart_data"));
+                                for (var i = 0; i < cart_data.length; i++) {
+                                    totalPrice += cart_data[i].amount * cart_data[i].price
+                                }
+                                $("#total-price").text(totalPrice)
+                                for (var i = 0; i < cart_data.length; i++) {
+                                    var $item = $('<div id="order3222429225" class="grid-order grid-order-selected"><div class ="order-select"> <input type="hidden" value=""/><div class="icon"></div></div> <a class="order-link" title=' + cart_data[i].name +
+                                        ' target="_blank"><img style="height: 60px;width: 60px" src="' + "http://oyf9q4qzp.bkt.clouddn.com/"+cart_data[i].logo + '"></a><div class="order-des"><h2>' + cart_data[i].name
+                                        + '</h2> <span class="ui-number"><a class="decrease " >' + "-" + '</a> <input type="number" disabled="disabled" class="num" value="' + cart_data[i].amount + '" min="1" pattern="[0-9]*" autocomplete="off" value="1"  maxlength="3" /> <a class="increase" data-evt="buy-cart-m/biz/amount:change">' + "+" + '</a><input type="hidden" value="' + cart_data[i].price + '"/></span> </div> <div class="order-opt"><div class="opt-num">' + "数量x" + cart_data[i].amount
+                                        + '</div> <p class="price"><span class="ui-price-icon">' + "￥ " + '</span><span class="ui-price-iconleft">' + cart_data[i].price * cart_data[i].amount + '</span></p><a class="opt-delete"></a></div> </div></div>');
+                                    $item.appendTo($('#cart-list'));
+                                }
+                            }
+                        </script>
+                        {#                                <div id="order3222429225" class="grid-order grid-order-selected">#}
+                        <!-- <div class="order-select">
+                                    <input type="hidden" value=""/>
+                                    <div class="icon"></div>
+                                </div>
+                                <a  class="order-link" title="【天猫超市】Pioneer/先锋 SE-CL51S 入耳式魔音线控耳麦音乐耳机" target="_blank">
+                                    <img src="images/TB2SDgAnXXXXXbKXXXXXXXXXXXX_!!725677994.jpg_sum.jpg">
+                                </a> -->
+                        <!-- <div class="order-des">
+                            <h2 >4</h2>
+                            <span class="ui-number"><a class="decrease " >-</a>
+                                <input type="number" disabled="disabled" class="num" min="1" pattern="[0-9]*" autocomplete="off" value="1"  maxlength="3" />
+                                <a class="increase" data-evt="buy-cart-m/biz/amount:change">+</a>
+                                  <input type="hidden" value="169.00"/>
+                            </span>
+                        </div> -->
+                        <!-- <div class="order-opt"><div class="opt-num">数量 x1</div>
+                            <p class="price">
+
+                                <span class="ui-price-icon">￥</span>
+                                <span class="ui-price-iconleft">169.00</span>
+
+                            </p>
+                            <a class="opt-delete"></a>
+                        </div> -->
+                        {#                                </div>#}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="float-box">
+            <div class="float-sum">
+                <p class="fee">
+                    <span class="total-title">总价：</span>
+                    <span class="total-fee-box">
+                                <span class="tc-rmb">￥</span>
+                                <span class="total-fee">0.00</span>
+                            </span>
+                </p>
+            </div>
+            <div class="float-go">
+                <button type="button" data-evt="buy-cart-m/biz/go:submit" class="go-btn">结算(
+                    <span class="total_prices">0</span>)
+                </button>
+            </div>
+        </div>
+</div>
+</form>
+</div>
+
+<div style="display: none">
+    <script src="{% static 'products/js/confirm.js' %}"></script>
+    <script src="{% static 'products/js/shop_cart.js' %}"></script>
+
+</div>
+
+</body>
+
+</html>

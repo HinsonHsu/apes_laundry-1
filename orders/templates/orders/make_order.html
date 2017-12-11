@@ -1,0 +1,78 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>确认订单</title>
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="{% static 'orders/css/make-order.css' %}">
+
+    <!-- javascript -->
+    <script src="{% static 'orders/js/make-order.js' %}"></script>
+
+</head>
+
+<body>
+<div class="icon-left-card" style="width: 12px; height: 10px;">
+    <a href="#" onClick="javascript :history.back(-1);"><img alt="" src="{% static 'products/images/left_icon.png' %}"></a>
+</div>
+<nav class="navbar navbar-default navbar-fixed-top container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-12">
+            <a href="#" class="nav-top">
+                <div id="title"></div>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid home-container">
+    <div>联系人信息</div>
+    <div class="div-address">
+        <div class="name">{{ add.name }}</div>
+        <div class="phone">{{ add.phone }}</div>
+        <div class="address">{{ add.address }}</div>
+    </div>
+    <div>订单信息</div>
+    <div class="order-items" id="order-items">
+        {#        <div class="order-item">#}
+        {#            <div class="item-name">黑色大衣</div>#}
+        {#            <div class="item-price">￥16</div>#}
+        {#            <div class="item-amount">数量 * 1</div>#}
+        {#        </div>#}
+        {#        <div class="order-item">#}
+        {#            <div class="item-name">黑色大衣</div>#}
+        {#            <div class="item-price">￥16</div>#}
+        {#            <div class="item-amount">数量 * 1</div>#}
+        {#        </div>#}
+        {#        <div class="order-item">#}
+        {#            <div class="item-name">黑色大衣</div>#}
+        {#            <div class="item-price">￥16</div>#}
+        {#            <div class="item-amount">数量 * 1</div>#}
+        {#        </div>#}
+    </div>
+</div>
+<div class="cart-footer">
+    <div class="cart-left" id="foot-buycar">
+    </div>
+    <div class="cart-mid">
+        <div style="text-align: right;width: 100%;margin-top: 15px">￥
+            <div id="total-price" style="float: right">0</div>
+        </div>
+    </div>
+    <div class="cart-right" onclick="make_order()">
+        <div class="foot-btn">确认订单</div>
+    </div>
+</div>
+</body>
+
+</html>

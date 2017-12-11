@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>运动鞋</title>
+    <title>详情</title>
 
     <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
 
@@ -15,15 +15,15 @@
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
 
     <!-- stylesheet -->
-    <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'products/css/category.css' %}">
 
     <!-- javascript -->
-    <script src="{% static 'products/js/catogory.js' %}"></script
+    <script src="{% static 'products/js/catogory.js' %}"></script>
 
 </head>
 
 <body>
-<div class="icon-left-card">
+<div class="icon-left-card" style="width: 12px; height: 10px;">
     <a href="/products/index/"><img alt="" src="{% static 'products/images/left_icon.png' %}"></a>
 </div>
 <nav class="navbar navbar-default navbar-fixed-top container-fluid">
@@ -45,42 +45,22 @@
     <div class="row" id="categories">
     </div>
 </div>
-<nav class="navbar navbar-default navbar-fixed-bottom container-fluid">
-    <ul class="nav row">
-        <li class="col-xs-4 active">
-            <a href="/products/index" class="nav-btn">
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                首页
-            </a>
-        </li>
-        <li class="col-xs-4">
-            <a href="#" class="nav-btn">
-                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                订单
-            </a>
-        </li>
-        <li class="col-xs-4">
-            <a href="/customer/index/" class="nav-btn">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                我的
-            </a>
-        </li>
-    </ul>
-</nav>
-{#    <script>#}
-{#        $(document).ready(function () {#}
-{#            loadData();#}
-{#        })#}
-{##}
-{#        function loadData() {#}
-{#            $('#categories').empty();#}
-{#            $.each(responseData_shoes.data, function (i, data) {#}
-{#                var $item = $('<div class="col-xs-6"><div class="thumbnail category-item"><img src="' + data.pic +#}
-{#                    '"><div class="caption"><h4>' + data.name + '</h4></div></div></div>');#}
-{#                $item.appendTo($('#categories'));#}
-{#            })#}
-{#        }#}
-{#    </script>#}
+<div class="cart-footer">
+    <div class="cart-left" id="foot-buycar">
+        <a href="/products/ship_cart/">
+            <i class="gwc-num"><img src="{% static 'products/images/cart.png' %}" style="height: 40px;width: 40px"></i>
+        </a>
+
+    </div><!--购物车标志-->
+    <div class="cart-mid">
+        <div style="text-align: right;width: 100%;margin-top: 15px">￥<div id="total-price" style="float: right">0</div></div>
+    </div>
+    <div class="cart-right">
+        <a href="/products/ship_cart/">
+            <div class="foot-btn">在线预约</div>
+        </a>
+    </div>
+</div>
 </body>
 
 </html>

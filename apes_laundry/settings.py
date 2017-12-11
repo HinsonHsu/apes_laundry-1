@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'aliyun_msg',
     'qiniu_storage',
     'products',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -118,6 +119,7 @@ DATABASE_APPS_MAPPING = {
     'couriers': 'aliyun',
     'products': 'aliyun',
     'customers': 'aliyun',
+    'orders': 'aliyun',
 }
 
 # Password validation
