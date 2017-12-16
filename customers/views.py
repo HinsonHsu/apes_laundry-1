@@ -10,9 +10,8 @@ from django.contrib.auth import login as userlogin, logout as userlogout
 import json
 
 from users.models import User
-from aliyun_msg.models import PhoneCaptcha
 from aliyun_msg.aliyun_msg import send_phoneCode, verify_phoneCode
-from .models import CustomerAddress
+from .models import CustomerAddress, Customer
 
 
 # Create your views here.
@@ -63,6 +62,11 @@ def login(request):
                 user.set_password(username)
                 user.is_active = 1
                 user.save()
+                # 注册用户信息
+                customer = Customer(name=username)
+                customer.phone = phone
+                customer.user_back_id = user.id
+                customer.save()
                 userlogin(request, user)
                 result["result"] = "success"
         elif vc == 2:
@@ -99,6 +103,11 @@ def register(request):
                 user.set_password(username)
                 user.is_active = 1
                 user.save()
+                # 注册用户信息
+                customer = Customer(name=username)
+                customer.phone = phone
+                customer.user_back_id = user.id
+                customer.save()
                 userlogin(request, user)
                 result["result"] = "success"
         elif vc == 2:

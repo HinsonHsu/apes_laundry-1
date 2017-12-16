@@ -15,14 +15,16 @@ from users.models import User
 from aliyun_msg.aliyun_msg import send_phoneCode, verify_phoneCode
 from qiniu_storage.service import writeFile
 from login_required import login_required_courier
-
+from orders.service import get_unaccepted_order, get_accepted_order_by_courier_id, get_complete_order_by_courier_id, get_order_by_ordersn
+from .models import Courier
+from orders.models import  Order
 USER_TYPE = 2 # 2 表示取送端
 USER_LABEL = "courier_"
 
 @login_required_courier()
 def index(request):
     # print request.user.username
-    return render(request, 'couriers/index.html')
+    return render(request, 'couriers/personal.html')
 
 
 @csrf_exempt
@@ -50,11 +52,11 @@ def login(request):
     if request.method == "POST":
         result = {}
         phone = request.POST.get("phone")
-        code = request.POST.get("captcha")
+        code = request.POST.get("code")
         vc = verify_phoneCode(phone=phone, code=code, type=USER_TYPE)
         if vc == 1:
             try:
-                username = "curier_" + phone
+                username = "courier_" + phone
                 user = User.objects.get(username=username);
                 userlogin(request,user)
                 result["result"] = "success"
@@ -150,7 +152,51 @@ def upload(request):
         new_courier = Courier(name=name, phone=phone, workplace=address, idcard_url=f1_name, health_url= f2_name, latitude=latitude, longitude=longitude)
         new_courier.user_back_id = user.id
         new_courier.save()
-
         return HttpResponse('upload ok')
     return render(request, 'couriers/upload.html')
 
+@csrf_exempt
+@login_required_courier()
+def notAccepted_orders(request):
+    if request.method == "GET":
+        orders = get_unaccepted_order()
+        return render(request, 'couriers/notAccept.html', {'orders': orders})
+    if request.method == "POST":
+        ordersn = request.POST['ordersn']
+        user_id = request.user.id
+        c = Courier.objects.filter(user_back_id=user_id)[0]
+        order = Order.objects.filter(ordersn=ordersn)[0]
+        order.status = 2
+        order.courier_id = c.id
+        order.courier_name = c.name
+        order.save()
+        result = {}
+        result['code'] = 1
+        res = json.dumps(result)
+        return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
+@login_required_courier()
+def accepted_orders(request):
+    c = Courier.objects.filter(user_back_id=request.user.id)[0]
+    orders = get_accepted_order_by_courier_id(c.id)
+    return render(request, 'couriers/accepted.html', {'orders': orders})
+@login_required_courier()
+def complete_orders(request):
+    c = Courier.objects.filter(user_back_id=request.user.id)[0]
+    orders = get_complete_order_by_courier_id(c.id)
+    return render(request, 'couriers/completed.html', {'orders': orders})
+@login_required_courier()
+def personal(request):
+    # print request.user.username
+    return render(request, 'couriers/personal.html')
+@login_required_courier()
+def orderDetail(request):
+    if request.method == "GET":
+        ordersn =  request.GET['ordersn']
+        ord = Order.objects.filter(ordersn=ordersn)[0]
+        order, order_msg = get_order_by_ordersn(ordersn)
+        from products.service import get_all_stations_by_city
+        stations = get_all_stations_by_city(city_id=ord.city_id)
+        stationList = []
+        for i in stations:
+            stationList.append(i['name'])
+        return render(request, 'couriers/orderDetail.html', {"order": order, 'order_msg': order_msg, 'stationList':stationList})

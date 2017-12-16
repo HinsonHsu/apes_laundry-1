@@ -1,117 +1,104 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 <head>
-    <meta charset="utf-8">
-    <script src="jquery.min.js"></script>
-    <meta name="Author" content="npc-guangming">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'orders/css/order.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>海马洗衣 客户端</title>
+
     <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
-    <!-- Bootstrap -->
+
+
     <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
-    <title>我的订单</title>
+
+    <link rel="stylesheet" href="{% static 'orders/css/index.css' %}">
+
+    <script src="{% static 'orders/js/data.js' %}"></script>
+
 </head>
 
 <body>
-<div id="header">
-    <ul>
-    </ul>
-</div>
-<div id="wrapper">
-    <ul>
-    </ul>
-</div>
-<nav class="navbar navbar-default navbar-fixed-bottom container-fluid">
-    <ul class="nav row">
-        <li class="col-xs-4 active">
-            <a href="/products/index" class="nav-btn">
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                首页
-            </a>
+<nav class="title-color title-text container-fluid">
+
+    <!-- <ul class="nav row">
+        <li class="col-xs-12">
+
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+
+            <a class="nav-top">海马洗衣</a>
         </li>
-        <li class="col-xs-4">
-            <a href="#" class="nav-btn">
-                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                订单
-            </a>
-        </li>
-        <li class="col-xs-4">
-            <a href="/customer/index/" class="nav-btn">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                我的
-            </a>
-        </li>
-    </ul>
+    </ul> -->
 </nav>
-<script type="text/javascript">
-    $(function () {
-        var mhight = $("#wrapper").outerHeight() + 50;
-        $("#wrapper").css("height", mhight + "px");
-        Refresh();
-    })
+<div class="item_bar">
+    <!-- <a class="list-group-item">
+        <h4 class="list-group-item-heading">订单号 </h4>
+        <p class="list-group-item-text">姓名 + 地址</p>
+    </a>
+    <div class="float-sum">
 
-    var nomal_color = "gray";
-    var shit_color = "#acd000";
-    var list = new Array("未付款", "待取货", "已完成");
-    addHeader(list);
+        <p class="list-group-item-text">衣服 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp数量x1</p>
+        <p class="list-group-item-text">衣服 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp数量x1</p>
+        <p class="list-group-item-text">衣服 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp数量x1</p>
+        <p class="fee">
+            <span class="total-title">总价：</span>
+            <span class="total-fee-box">
+                <span class="tc-rmb"> &nbsp&nbsp&nbsp￥</span>
+                <span class="total-fee">0.00</span>
+            </span>
+        </p>
+    </div> -->
+</div>
+<div class="foot-position">
+    <nav class="navbar navbar-default navbar-fixed-bottom container-fluid " id="footer">
 
-    function addHeader(list) {
-        var headerHtml = "";
-        for (var i = 0; i < list.length; i++) {
-            headerHtml += "<li value=" + i + "><div>" + list[i] + "</div></li>"
-        }
-        $("#header ul").empty().append(headerHtml);
-        $("#header ul li").css("width", 100 / list.length + "%");
-        $("#header ul li").click(function () {
-            $(this).css("color", shit_color);
-            $(this).css("border-color", shit_color);
-            $(this).siblings().css("color", nomal_color);
-            $(this).siblings().css("border-color", "white");
-            ;
-        })
-    }
+        <div class="Grid">
+            <div class="Grid-cell u-1of5">
+                <a href="#" class="nav-btn">
+                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true" id="unaccept"
+                          onclick="unaccept()">待接单</span>
 
-    function order() {
-        this.picture = "/img/1.png";
-        this.price = "6.6";
-        this.count = "1";
-        this.orderNum = "0021000827095"
-    }
-    var order1 = new order();
-    var orderArr = new Array(order1, order1, order1, order1, order1);
-    var orderHtml = ""
-    for (var i = 0; i < orderArr.length; i++) {
-        orderHtml += "<li><div class='orderNum'>订单号:" + orderArr[i].orderNum + "<span>已完成</span></div><div class='imglist'><img src=" + orderArr[i].picture + "></div><div class='orderMsg'>合计" + orderArr[i].price + "元<span>已评论</span></div></li>"
-    }
+                </a>
+            </div>
+            <div class="Grid-cell u-1of5">
+                <a href="#" class="nav-btn">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true" id="unpay"
+                          onclick="unconfirm()">待确认</span>
 
-    $("#wrapper ul").empty().append(orderHtml);
+                </a>
+            </div>
+            <div class="Grid-cell u-1of5">
+                <a href="#" class="nav-btn" id="nav2">
+                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true" id="dealing"
+                          onclick="unpay()">待付款</span>
 
-    refresher.init({
-        id: "wrapper",
-        pullDownAction: Refresh,
-        pullUpAction: Load
-    });
-    var generatedCount = 0;
+                </a>
+            </div>
+            <div class="Grid-cell u-1of5">
+                <a href="#" class="nav-btn">
+                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true" id="finish"
+                          onclick="finish()">已完成</span>
 
-    function Refresh() {
-        setTimeout(function () {
-            wrapper.refresh();
-        }, 1000);
+                </a>
+            </div>
+            <div class="Grid-cell u-1of5">
+                <a href="#" class="nav-btn">
+                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true" id="cancel"
+                          onclick="cancel()">已取消</span>
 
-    }
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
 
-    function Load() {
-        setTimeout(function () {
 
-            wrapper.refresh();
-
-        }, 1000);
-    }
-</script>
 </body>
 
 </html>
+<script>
+    var orders = {{ orders|safe }};
+</script>
+

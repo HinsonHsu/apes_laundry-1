@@ -1,0 +1,65 @@
+.nav-top{
+    text-align: center;
+    padding: 0px !important;
+    height: 40px;
+    line-height: 50px;
+}
+
+
+.home-container{
+    margin-top: 51px;
+    margin-bottom: 51px;
+    padding-top:20px;
+}
+
+.category-item img{
+    height: 100px;
+}
+.category-item .caption{
+    text-align: center;
+}
+.icon-left-card {
+    float:left;
+    width: 12px;
+    height: 10px;
+    margin-top: -40px;
+    margin-left: 15px;
+    z-index: 2;
+    position:absolute;
+
+  }
+  
+.title-color{
+    background-color: #25ADFA;
+    
+}
+.title-text p{
+    color: #ffffff;
+    font-size:20px;
+    z-index: 1;
+}
+
+.btn-determine {
+  border: 1px solid #00dbf5;
+  background-color: #25ADFA;
+  height: 42px;
+  color: #fff;
+  border-radius: 6px;
+  display: block;
+  line-height: 42px;
+  text-align: csenter;
+  width: 80%;
+  font-size: 1.1em;
+  margin-top:30px;
+}
+
+.back{
+float: left;	
+margin-left: 20px;
+margin-top: 20px;
+z-index: 2;
+position: relative;
+}
+
+
+

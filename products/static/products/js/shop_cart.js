@@ -223,7 +223,6 @@ $(function () {
 
     $("button.go-btn").on("click", function () {
             Balance()
-
         }
     );
 

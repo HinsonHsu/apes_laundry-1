@@ -1,0 +1,164 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>海马洗衣 取送端</title>
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+
+
+    <link href="{% static 'curiers/css/newBootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'curiers/css/orderDetail.css' %}">
+    <script src="{% static 'curiers/js/script.js' %}"></script>
+
+    <script>
+        var ordertmp = {{ order | safe }};
+        $(document).ready(function () {
+            load()
+        })
+        function load() {
+
+            {#            var jsonList = {#}
+            {#                orderId: '1234567890',#}
+            {#                address: '北京交通大学学苑宿舍7号楼1601',#}
+            {#                price: '22',#}
+            {#                name: '古尔丹',#}
+            {#                telNumber: '15462147971',#}
+            {#                cloth: [{clothName: '大衣', clothPrice: '50', amount: '2'}, {#}
+            {#                    clothName: '衬衫',#}
+            {#                    clothPrice: '30',#}
+            {#                    amount: '3'#}
+            {#                }]#}
+            {#            };#}
+            var jsonList = ordertmp
+            {#            var clothList = [{name: '大衣'}, {name: '毛衣'}, {name: '短袖'}, {name: '衬衫'}, {name: '牛仔裤'}, {name: '休闲裤'}, {name: '羽绒服'}];#}
+            var clothList = ordertmp.cloth
+            var objs = eval(jsonList);
+            var i = 0;
+            var j = 1;
+            var z = 0;
+            var interval = '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0';
+            for (i; i < objs.cloth.length; i++) {
+
+                var add = document.getElementById('detail');
+                var myForm = document.createElement('form');
+                myForm.id = i;
+                myForm.className = "form-inline";
+                add.appendChild(myForm);
+
+
+                var addFormGroup1 = document.getElementById(i);
+                var formGroup1 = document.createElement('div');
+                formGroup1.className = "form-group";
+                formGroup1.id = "form1" + i;
+                addFormGroup1.appendChild(formGroup1);
+
+                var addSelectCategory = document.getElementById('form1' + i);
+                var category = document.createElement('select');
+                category.className = "form-control";
+                category.id = "select1" + i;
+                category.style = "width:250px";
+                addSelectCategory.appendChild(category);
+
+                var addCategoryOption = document.getElementById('select1' + i);
+                var categoryOption = document.createElement('option');
+                var text = document.createTextNode(objs.cloth[i].name);
+                categoryOption.appendChild(text);
+                addCategoryOption.appendChild(categoryOption);
+                {#                for (var i = 0; i < ordertmp.cloth.length; i++) {#}
+                {#                    var addCategoryOption = document.getElementById('select1' + i);#}
+                {#                    var categoryOption = document.createElement('option');#}
+                {#                    for (var j = 0; j < ordertmp.cloth[i].category_products.length; j++) {#}
+                {#                        var text = document.createTextNode(ordertmp.cloth[i].category_products[j].name);#}
+                {#                        categoryOption.appendChild(text);#}
+                {#                    }#}
+                {#                    addCategoryOption.appendChild(categoryOption);#}
+                {#                }#}
+                for (var z = 0; z < clothList[i].category_products.length; z++) {
+                    if (clothList[i].id != clothList[i].category_products[z].product_id) {
+
+                        var addCategoryOption = document.getElementById('select1' + i);
+                        var categoryOption = document.createElement('option');
+                        var text = document.createTextNode(clothList[i].category_products[z].name);
+                        categoryOption.appendChild(text);
+                        addCategoryOption.appendChild(categoryOption);
+                    }
+                }
+
+                var addFormGroup2 = document.getElementById(i);
+                var formGroup2 = document.createElement('div');
+                formGroup2.className = "form-group";
+                formGroup2.id = "form2" + i;
+                addFormGroup2.appendChild(formGroup2);
+
+                var addSelectNumber = document.getElementById('form2' + i);
+                var number = document.createElement('select');
+                number.className = "form-control";
+                number.id = "select2" + i;
+                number.style = "width:100px";
+                addSelectNumber.appendChild(number);
+
+                var addNumerOption = document.getElementById('select2' + i);
+                var numberOption = document.createElement('option');
+                var text = document.createTextNode('X ' + objs.cloth[i].amount);
+                numberOption.appendChild(text);
+                addNumerOption.appendChild(numberOption);
+
+                for (j; j < 10; j++) {
+                    if (j != objs.cloth[i].amount) {
+                        var addNumerOption = document.getElementById('select2' + i);
+                        var numberOption = document.createElement('option');
+                        var text = document.createTextNode('X' + j);
+                        numberOption.appendChild(text);
+                        addNumerOption.appendChild(numberOption);
+                    }
+                }
+                j = 1;
+                z = 0;
+            }
+        }
+
+    </script>
+
+
+</head>
+
+<body>
+<nav class="title-color title-text ">
+    <ul class="nav row">
+        <li class="col-xs-11">
+            <div class="back">
+                <a class="glyphicon glyphicon-menu-left" href="/courier/accepted_orders/"></a>
+            </div>
+            <p class="nav-top">订单详情</p>
+        </li>
+    </ul>
+</nav>
+
+<a class="list-group-item">
+    <p class="list-group-item-heading">订单编号：{{ order_msg.orderId }} </p>
+    <p class="list-group-item-heading">{{ order_msg.name }} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ order_msg.phone }}</p>
+    <h4 class="list-group-item-text">{{ order_msg.address }}</h4>
+</a>
+
+<div id="detail"></div>
+<div class="form-group">
+    <label style="font-size:18px">加工站地址:</label>
+    <div class="col-sx-8">
+        <select class="form-control select2" style="width:95%">
+            {% for i in stationList %}
+                <option>  {{ i }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <center>
+        <button type="submit" id="determineBtn" class="btn-determine" disabled="disabled">确定</button>
+    </center>
+</body>
+</html>

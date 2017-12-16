@@ -9,6 +9,8 @@ from .models import Order, Order_item
 from customers.models import CustomerAddress
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from products.models import Products
+from customers.models import CustomerAddress, Customer
 # Create your views here.
 
 
@@ -34,35 +36,80 @@ def query_order_by_ordersn(ordersn):
     return jsonStr
 
 def index(request):
-    return render(request, 'orders/index.html')
+    if request.method == "GET":
+        user_id = request.user.id
+        customer_id = Customer.objects.filter(user_back_id=user_id)[0].id
+        res = []
+        for state in range(1,6):
+            orders = Order.objects.filter(customer_id=customer_id, status=state)
+            orders_detail = []
+            i = 0
+            for order in orders:
+                order_items = Order_item.objects.filter(ordersn= order.ordersn)
+                clothes_detail = {}
+                clothes  = []
+
+                for order_item in order_items:
+                    cloth = {}
+                    cloth['id'] = order_item.product_id
+                    name = Products.objects.filter(id=order_item.product_id)[0].name
+                    cloth['name'] = name
+                    cloth['price'] = order_item.price
+                    cloth['amount'] = order_item.amount
+                    clothes.append(cloth)
+                i += 1
+                clothes_detail['id'] = i
+                clothes_detail['order_ID'] = order.ordersn
+                clothes_detail['name'] = order.customer_name
+                clothes_detail['address_ID'] = order.address
+                clothes_detail['order_time'] = order.created_at.strftime("%Y-%m-%d %H:%I:%S")
+                clothes_detail['cloth'] = clothes
+                orders_detail.append(clothes_detail)
+            res.append(orders_detail)
+
+        return render(request, 'orders/index.html', {"orders": json.dumps(res)})
 @csrf_exempt
 def make_order(request):
     if request.method == "GET":
         user_id = request.user.id;
-        customerAddress = CustomerAddress.objects.filter(user_id=user_id)[0]
-        add = {}
-        add['name'] = customerAddress.name
-        add['phone'] = customerAddress.phone
-        add['address'] = customerAddress.address + " " + customerAddress.door_number
+        customerAddress = CustomerAddress.objects.filter(user_id=user_id)
+        if len(customerAddress) > 0:
+            customerAddress = customerAddress[0]
+            add = {}
+            add['name'] = customerAddress.name
+            add['phone'] = customerAddress.phone
+            add['address'] = customerAddress.address + " " + customerAddress.door_number
+        else:
+            add = None
         return render(request, 'orders/make_order.html', {'add':add})
     if request.method == 'POST':
+        customer_id = Customer.objects.filter(user_back_id=request.user.id)[0].id
         jsonStr = json.loads(request.body)
         Arr = jsonStr
         print Arr
         ordersn = int(math.floor(time.mktime(timezone.now().timetuple()))) + random.randint(0, 1000)
         total_price = 0
-        for i in Arr:
+        # 数组前len(Arr) - 1元素为 order 信息
+        for i in range(len(Arr)-1):
             item = Order_item()
             item.ordersn = ordersn
-            item.product_id = i['id']
-            item.price = i['price']
-            item.amount = i['amount']
+            item.product_id = Arr[i]['id']
+            item.price = Arr[i]['price']
+            item.amount = Arr[i]['amount']
             item.save()
             total_price += item.price * item.amount
+        #数组最后一个元素为{"city_id": city_id}
+        city_id = Arr[len(Arr)-1]['city_id']
         order = Order()
-        order.user_id = request.user.id
+        order.customer_id = customer_id
         order.ordersn = ordersn
         order.total_price = total_price
+        order.city_id = city_id
+        order.status = 1
+        customer_address = CustomerAddress.objects.filter(user_id=request.user.id)[0]
+        order.customer_name = customer_address.name
+        order.phone = customer_address.phone
+        order.address = customer_address.address + " " + customer_address.door_number
         delta = datetime.timedelta(minutes=30)  # 30分钟后过期
         order.exp_date = timezone.now() + delta
         order.save()
@@ -71,5 +118,15 @@ def make_order(request):
         res = json.dumps(result)
         print res.decode("unicode-escape")
         return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
-
-
+@csrf_exempt
+def cancel_order(request):
+    if request.method == "POST":
+        ordersn = request.POST['ordersn']
+        print "cancel:{0}".format(ordersn)
+        order = Order.objects.filter(ordersn=ordersn)[0]
+        order.status = 5
+        order.save()
+        result = {}
+        result['code'] = 1
+        res = json.dumps(result)
+        return HttpResponse(res.decode("unicode-escape"), content_type="application/json")

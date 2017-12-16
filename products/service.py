@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import connections
 from .models import Categories, Categories_cities, Products, Price_rules, Prices
+def get_all_stations_by_city(city_id):
+    cursor = connections['aliyun'].cursor()
+    cursor.execute('select id, name from stations where city_id = %s', str(city_id))
+    return dictfetchall(cursor)
 def get_all_products():
     cursor = connections['aliyun'].cursor()
     cursor.execute('select id, name, logo from categories where is_del = 0')

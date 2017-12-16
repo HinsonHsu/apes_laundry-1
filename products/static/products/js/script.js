@@ -10,6 +10,7 @@ $(document).ready(function () {
 })
 function changeAdd(city_id) {
     sessionStorage.setItem("city_id", city_id)
+    localStorage.removeItem("cart_data")
     getData(city_id)
 }
 function getData(city_id) {

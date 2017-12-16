@@ -1,0 +1,114 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>海马洗衣 取送端</title>
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+
+
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'curiers/css/completed.css' %}">
+    <script src="{% static 'curiers/js/script.js' %}"></script>
+
+    <script>
+        orders = {{ orders|safe }}
+            $(document).ready(function () {
+                load()
+            })
+        function load() {
+
+
+            {#            var jsonList = [{#}
+            {#                orderId: '1234567890',#}
+            {#                address: '北京交通大学学苑宿舍7号楼1601',#}
+            {#                price: '22',#}
+            {#                time: '2017-12-15 18:32'#}
+            {#            },#}
+            {#                {orderId: '0987654321', address: '海淀区交大东路24号', price: '20', time: '2017-12-12 20:18'}];#}
+            var jsonList = orders
+            var objs = eval(jsonList);
+            var i = 0;
+            var interval = '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0';
+            for (i; i < jsonList.length; i++) {
+
+                var add = document.getElementById('order');
+                var list = document.createElement('a');
+                list.id = i;
+                list.className = 'list-group-item';
+
+                add.appendChild(list);
+
+                var addId = document.getElementById(i);
+                var number = document.createElement('p');
+                var numText = document.createTextNode('订单编号：' + objs[i].orderId);
+                number.className = "list-group-item-heading";
+                number.appendChild(numText);
+                addId.appendChild(number);
+
+                var addprice = document.getElementById(i);
+                var price = document.createElement('p');
+                var priceText = document.createTextNode('完成时间：' + objs[i].time + interval + '￥:' + objs[i].price);
+                price.className = "list-group-item-heading";
+                price.appendChild(priceText);
+                addId.appendChild(price);
+
+                var addAddr = document.getElementById(i);
+                var address = document.createElement('h4');
+                var addrText = document.createTextNode(objs[i].address);
+                address.className = "list-group-item-heading";
+                address.appendChild(addrText);
+                addAddr.appendChild(address);
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+<nav class="title-color title-text container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-12">
+            <p class="nav-top">已完成</p>
+        </li>
+    </ul>
+</nav>
+
+<div id="order"></div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-3 active">
+            <a href="/courier/unaccepted_orders/" class="nav-btn">
+                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                未接单
+            </a>
+        </li>
+        <li class="col-xs-3">
+            <a href="/courier/accepted_orders/" class="nav-btn">
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                已接单
+            </a>
+        </li>
+        <li class="col-xs-3">
+            <a href="/courier/complete_orders/" class="nav-btn">
+                <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                已完成
+            </a>
+        </li>
+        <li class="col-xs-3">
+            <a href="/courier/personal/" class="nav-btn">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                我的
+            </a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

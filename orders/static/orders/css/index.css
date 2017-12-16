@@ -1,0 +1,125 @@
+h4,
+p {
+    padding-bottom: 10px;
+}
+
+.nav-top,
+.nav-btn {
+    text-align: center;
+    padding: 0px !important;
+    height: 50px;
+    line-height: 50px;
+}
+
+button {
+    size: 15px;
+    font-size: 10px;
+}
+
+.home-container {
+    margin-top: 51px;
+    margin-bottom: 51px;
+    padding-top: 20px;
+}
+
+.category-item img {
+    height: 100px;
+}
+
+.category-item .caption {
+    text-align: center;
+}
+
+.icon-left-card {
+    float: left;
+    width: 12px;
+    height: 10px;
+    margin-top: -40px;
+    margin-left: 15px;
+    z-index: 2;
+    position: absolute;
+}
+
+.title-color {
+    background-color: #25ADFA;
+}
+
+.title-text p {
+    color: #ffffff;
+    font-size: 20px;
+    z-index: 1;
+}
+
+.go-btn  {
+    position: relative;
+    height: 30px;
+    padding: 0 15px;
+    margin-top: 10px;
+    color: #fff;
+    background: #e8374d;
+    float: right;
+    margin-right: 25px;
+    border: 1px solid rgba(221,218,218,.25);
+    cursor: pointer;
+}
+
+
+.tc-rmb,
+.float-sum .total-fee {
+
+    color: #e8374d;
+    font-family: arial, tahoma, verdana, sans-serif!important
+}
+
+.float-sum .total-title {
+    display: inline-block;
+
+    color: #666;
+}
+
+.float-sum .tc-rmb {
+    font-size: 14px
+}
+
+.float-sum {
+    padding-top: 1.2rem;
+    font-weight: 400;
+    margin-left: 20px;
+}
+
+
+.tc-rmb,
+.float-sum .total-fee {
+    color: #e8374d;
+    font-family: arial, tahoma, verdana, sans-serif!important
+}
+
+.float-sum .tc-rmb {
+    font-size: 14px
+}
+
+.float-sum .total-title {
+    display: inline-block;
+    margin-right: 0.5rem;
+    color: #666;
+}
+.Grid {
+    display: flex;
+  }
+  .Grid-cell.u-1of5 {
+    flex: 0 0 20%;
+  }
+.back{
+    float: left;
+    margin-top: 20px;
+    z-index: 2;
+    position: relative;
+}
+.price{
+   margin-top: 20px;
+   margin-left: 260px;
+}
+.foot-position{
+    margin-top: 20px;
+}
+

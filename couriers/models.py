@@ -24,3 +24,4 @@ class Courier(models.Model):
     class Meta:
         app_label = 'couriers'
         db_table = 'couriers'
+

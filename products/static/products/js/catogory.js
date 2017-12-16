@@ -3,7 +3,7 @@
  */
 var category_data = [];
 var cart_data = []
-var totalPrice = 0
+var totalPrice;
 $(document).ready(function () {
     city_id = sessionStorage.getItem("city_id")
     $("#address-select").val(city_id)
@@ -11,18 +11,21 @@ $(document).ready(function () {
     getData(city_id);
 })
 function calculateTotalPrice() {
+    totalPrice = 0
     cart_data = JSON.parse(localStorage.getItem("cart_data"));
     if (cart_data != null) {
         for (var i = 0; i < cart_data.length; i++) {
             totalPrice += cart_data[i].amount * cart_data[i].price
         }
     }
-
     $("#total-price").text(totalPrice)
 }
 function changeAdd(city_id) {
     sessionStorage.setItem("city_id", city_id)
     getData(city_id)
+    //重新计算购物车
+     localStorage.removeItem("cart_data")
+    calculateTotalPrice()
 }
 function getData(city_id) {
     var category_id = getUrlParam('id');

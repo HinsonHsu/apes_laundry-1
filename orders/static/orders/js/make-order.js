@@ -18,7 +18,8 @@ function calculateTotalPrice() {
 }
 function make_order() {
     $("#cart-right").attr("disabled", true);
-    console.log("cart_data:" + cart_data)
+    city_id = sessionStorage.getItem("city_id")
+    cart_data.push({"city_id": city_id})
     $.ajax({
         type: "POST",
         url: "/orders/make_order/",
@@ -28,7 +29,7 @@ function make_order() {
             console.log("receive:" + res);
             if (res.code == 1) {
                 alert("下单成功")
-                localStorage.removeItem('cart-data');
+                localStorage.removeItem('cart_data');
                 window.location.href = "/products/index/"
             } else {
                 alert("下单失败")
