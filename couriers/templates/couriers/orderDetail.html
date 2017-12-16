@@ -21,6 +21,51 @@
         $(document).ready(function () {
             load()
         })
+        function submit() {
+            var order = {}
+            var order_items = []
+            var index3 = $("#station_select").prop('selectedIndex');
+            for (var i = 0; i < ordertmp.cloth.length; i++) {
+                var product = {}
+                var index1 = $("#select1" + i).prop('selectedIndex');
+                var index2 = $("#select2" + i).prop('selectedIndex');
+
+                if (index1 == 0) {
+                    product.id = ordertmp.cloth[i].id
+                    product.name = ordertmp.cloth[i].name
+                    product.price = ordertmp.cloth[i].price
+                    product.amount = ordertmp.cloth[i].amount
+                }
+                else {
+                    product.id = ordertmp.cloth[index1 - 1].id
+                    product.name = ordertmp.cloth[index1 - 1].name
+                    product.price = ordertmp.cloth[index1 -1].price
+                    product.amount = index2 + 1
+                }
+                order_items.push(product)
+            }
+            order.ordersn = ordertmp.orderId
+            order.order_items = order_items
+            order.station = index3
+            alert(index3)
+            $.ajax({
+                type: "POST",
+                url: "/courier/order_detail/",
+                data: JSON.stringify(order),
+                dataType: 'json',
+                success: function (res) {
+                    console.log("receive:" + res);
+                    if (res.code == 1) {
+                        alert("修改成功")
+                        window.location.href = "/courier/complete_orders/"
+                    } else {
+                        alert("修改失败")
+                        alert(res.errMsg)
+                    }
+                },
+                // error: onError
+            })
+        }
         function load() {
 
             {#            var jsonList = {#}
@@ -150,7 +195,7 @@
 <div class="form-group">
     <label style="font-size:18px">加工站地址:</label>
     <div class="col-sx-8">
-        <select class="form-control select2" style="width:95%">
+        <select class="form-control select2" id="station_select" style="width:95%">
             {% for i in stationList %}
                 <option>  {{ i }}</option>
             {% endfor %}
@@ -158,7 +203,7 @@
     </div>
 
     <center>
-        <button type="submit" id="determineBtn" class="btn-determine" disabled="disabled">确定</button>
+        <div type="submit" id="determineBtn" class="btn-determine" onclick="submit()">确定</div>
     </center>
 </body>
 </html>

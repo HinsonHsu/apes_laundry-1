@@ -17,7 +17,7 @@ from qiniu_storage.service import writeFile
 from login_required import login_required_courier
 from orders.service import get_unaccepted_order, get_accepted_order_by_courier_id, get_complete_order_by_courier_id, get_order_by_ordersn
 from .models import Courier
-from orders.models import  Order
+from orders.models import  Order, Order_item
 USER_TYPE = 2 # 2 表示取送端
 USER_LABEL = "courier_"
 
@@ -188,6 +188,7 @@ def complete_orders(request):
 def personal(request):
     # print request.user.username
     return render(request, 'couriers/personal.html')
+@csrf_exempt
 @login_required_courier()
 def orderDetail(request):
     if request.method == "GET":
@@ -200,3 +201,28 @@ def orderDetail(request):
         for i in stations:
             stationList.append(i['name'])
         return render(request, 'couriers/orderDetail.html', {"order": order, 'order_msg': order_msg, 'stationList':stationList})
+    if request.method == "POST":
+        jsonStr = json.loads(request.body)
+        print jsonStr
+        ordersn = jsonStr['ordersn']
+        target_station_index = jsonStr['station']
+        order_items = jsonStr['order_items']
+        order = Order.objects.filter(ordersn=ordersn)[0]
+        from products.service import get_all_stations_by_city
+        stations = get_all_stations_by_city(city_id=order.city_id)
+        order.target_station_id = stations[target_station_index]['id']
+        curOrder_items = Order_item.objects.filter(ordersn=ordersn)
+        total_price = 0
+        for i, order_item in enumerate(order_items):
+            curOrder_items[i].product_id = order_item['id']
+            curOrder_items[i].name = order_item['name']
+            curOrder_items[i].price = order_item['price']
+            curOrder_items[i].amount = order_item['amount']
+            total_price += curOrder_items[i].price * curOrder_items[i].amount
+        order.total_price = total_price
+        order.status = 4
+        order.save()
+        result = {}
+        result['code'] = 1
+        res = json.dumps(result)
+        return HttpResponse(res.decode("unicode-escape"), content_type="application/json")

@@ -108,7 +108,12 @@ def get_order_by_ordersn(ordersn):
         category_id = Products.objects.filter(id=order_item.product_id)[0].category_id
         category_products = []
         products = Products.objects.filter(category_id=category_id, is_del=0)
-        for product in products:
+        filted_products = []
+        for x in products:
+            if x.id != cloth['id']:
+                filted_products.append(x)
+
+        for product in filted_products:
             product_detail = {}
             product_detail['product_id'] = product.id
             product_detail['name'] = product.name
