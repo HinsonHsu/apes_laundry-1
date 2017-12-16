@@ -41,7 +41,7 @@ def index(request):
         customer_id = Customer.objects.filter(user_back_id=user_id)[0].id
         res = []
         for state in range(1,6):
-            orders = Order.objects.filter(customer_id=customer_id, status=state)
+            orders = Order.objects.filter(customer_id=customer_id, status=state).order_by("-updated_at")
             orders_detail = []
             i = 0
             for order in orders:
@@ -125,6 +125,18 @@ def cancel_order(request):
         print "cancel:{0}".format(ordersn)
         order = Order.objects.filter(ordersn=ordersn)[0]
         order.status = 5
+        order.save()
+        result = {}
+        result['code'] = 1
+        res = json.dumps(result)
+        return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
+@csrf_exempt
+def pay_order(request):
+    if request.method == "POST":
+        ordersn = request.POST['ordersn']
+        print "cancel:{0}".format(ordersn)
+        order = Order.objects.filter(ordersn=ordersn)[0]
+        order.status = 4
         order.save()
         result = {}
         result['code'] = 1

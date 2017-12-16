@@ -6,7 +6,7 @@ import json
 
 def get_unaccepted_order():
     # 未接单信息
-    orders = Order.objects.filter(status=1)
+    orders = Order.objects.filter(status=1).order_by("-updated_at")
     orders_detail = []
     i = 0
     totalprice = 0
@@ -37,7 +37,7 @@ def get_unaccepted_order():
 
 def get_accepted_order_by_courier_id(courier_id):
     # 已接单信息
-    orders = Order.objects.filter(status=2, courier_id=courier_id)
+    orders = Order.objects.filter(status=2, courier_id=courier_id).order_by("-updated_at")
     orders_detail = []
     i = 0
     totalprice = 0
@@ -68,7 +68,7 @@ def get_accepted_order_by_courier_id(courier_id):
 
 def get_complete_order_by_courier_id(courier_id):
     # 已完成信息
-    orders = Order.objects.filter(status=4, courier_id=courier_id)
+    orders = Order.objects.filter(status=4, courier_id=courier_id).order_by("-updated_at")
     orders_detail = []
     i = 0
     totalprice = 0

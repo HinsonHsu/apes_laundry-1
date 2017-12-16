@@ -221,6 +221,22 @@ function go() {
 }
 function pay_order(ordersn) {
     alert("pay order:" + ordersn)
+    $.ajax({
+        type: "POST",
+        url: "/orders/pay_order/",
+        data: {ordersn: ordersn},
+        dataType: 'json',
+        success: function (res) {
+            if (res.code == 1) {
+                alert("成功付款")
+                window.location.href = "/orders/index/"
+            } else {
+                alert("操作失败")
+                alert(res.errMsg)
+            }
+        },
+        // error: onError
+    })
 }
 function cancel_order(ordersn) {
     $.ajax({

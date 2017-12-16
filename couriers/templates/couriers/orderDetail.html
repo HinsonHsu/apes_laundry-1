@@ -18,11 +18,12 @@
 
     <script>
         var ordertmp = {{ order | safe }};
+        var order
         $(document).ready(function () {
             load()
         })
         function submit() {
-            var order = {}
+            order = {}
             var order_items = []
             var index3 = $("#station_select").prop('selectedIndex');
             for (var i = 0; i < ordertmp.cloth.length; i++) {
@@ -37,17 +38,16 @@
                     product.amount = ordertmp.cloth[i].amount
                 }
                 else {
-                    product.id = ordertmp.cloth[index1 - 1].id
-                    product.name = ordertmp.cloth[index1 - 1].name
-                    product.price = ordertmp.cloth[index1 -1].price
-                    product.amount = index2 + 1
+                    product.id = ordertmp.cloth[i].category_products[index1-1].product_id
+                    product.name = ordertmp.cloth[i].category_products[index1-1].name
+                    product.price = ordertmp.cloth[i].category_products[index1-1].price
                 }
+                product.amount = index2 + 1
                 order_items.push(product)
             }
             order.ordersn = ordertmp.orderId
             order.order_items = order_items
             order.station = index3
-            alert(index3)
             $.ajax({
                 type: "POST",
                 url: "/courier/order_detail/",

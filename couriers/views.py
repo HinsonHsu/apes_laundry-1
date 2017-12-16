@@ -214,13 +214,16 @@ def orderDetail(request):
         curOrder_items = Order_item.objects.filter(ordersn=ordersn)
         total_price = 0
         for i, order_item in enumerate(order_items):
-            curOrder_items[i].product_id = order_item['id']
-            curOrder_items[i].name = order_item['name']
-            curOrder_items[i].price = order_item['price']
-            curOrder_items[i].amount = order_item['amount']
+            after_order_item = Order_item.objects.get(id=curOrder_items[i].id)
+            print after_order_item.id
+            after_order_item.product_id = order_item['id']
+            after_order_item.name = order_item['name']
+            after_order_item.price = order_item['price']
+            after_order_item.amount = order_item['amount']
+            after_order_item.save()
             total_price += curOrder_items[i].price * curOrder_items[i].amount
         order.total_price = total_price
-        order.status = 4
+        order.status = 3
         order.save()
         result = {}
         result['code'] = 1
