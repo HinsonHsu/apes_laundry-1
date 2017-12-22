@@ -14,7 +14,7 @@ function unaccept() {
             '</h4><p class = "list-group-item-text">' + data.name + '&nbsp&nbsp&nbsp&nbsp' + data.address_ID + '</p><p>下单时间 ' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + data.order_time + '</p></a>');
         $item.appendTo($('.item_bar'));
     })
-
+    $(document).attr("title", "待接单");
 }
 
 function unconfirm() {
@@ -28,6 +28,7 @@ function unconfirm() {
             '</h4><p class = "list-group-item-text">' + data.name + '&nbsp&nbsp&nbsp&nbsp' + data.address_ID + '</p><p>下单时间 ' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + data.order_time + '</p></a>');
         $item.appendTo($('.item_bar'));
     })
+    $(document).attr("title", "待确认");
 }
 
 function unpay() {
@@ -42,6 +43,7 @@ function unpay() {
         $item.appendTo($('.item_bar'));
 
     })
+    $(document).attr("title", "待付款");
 }
 
 function finish() {
@@ -56,6 +58,7 @@ function finish() {
         $item.appendTo($('.item_bar'));
 
     })
+    $(document).attr("title", "已完成");
 }
 function cancel() {
     var data = orders[4];
@@ -68,6 +71,7 @@ function cancel() {
             '</h4><p class = "list-group-item-text">' + data.name + '&nbsp&nbsp&nbsp&nbsp' + data.address_ID + '</p><p>下单时间 ' + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + data.order_time + '</p></a>');
         $item.appendTo($('.item_bar'));
     })
+    $(document).attr("title", "已取消");
 }
 
 function unaccept_item() {

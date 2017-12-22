@@ -4,9 +4,9 @@ from products.models import Products, Categories, Price_rules, Prices
 import json
 
 
-def get_unaccepted_order():
+def get_unaccepted_order(city_id):
     # 未接单信息
-    orders = Order.objects.filter(status=1).order_by("-updated_at")
+    orders = Order.objects.filter(status=1,city_id=city_id).order_by("-updated_at")
     orders_detail = []
     i = 0
     totalprice = 0
@@ -28,7 +28,7 @@ def get_unaccepted_order():
         clothes_detail['orderId'] = order.ordersn
         clothes_detail['name'] = order.customer_name
         clothes_detail['address'] = order.address
-        clothes_detail['time'] = order.created_at.strftime("%Y-%m-%d %H:%I:%S")
+        clothes_detail['time'] = order.created_at.strftime("%Y-%m-%d %H:%M:%S")
         clothes_detail['cloth'] = clothes
         clothes_detail['price'] = totalprice
         orders_detail.append(clothes_detail)
@@ -59,7 +59,7 @@ def get_accepted_order_by_courier_id(courier_id):
         clothes_detail['orderId'] = order.ordersn
         clothes_detail['name'] = order.customer_name
         clothes_detail['address'] = order.address
-        clothes_detail['time'] = order.created_at.strftime("%Y-%m-%d %H:%I:%S")
+        clothes_detail['time'] = order.created_at.strftime("%Y-%m-%d %H:%M:%S")
         clothes_detail['cloth'] = clothes
         clothes_detail['price'] = totalprice
         orders_detail.append(clothes_detail)
@@ -90,7 +90,7 @@ def get_complete_order_by_courier_id(courier_id):
         clothes_detail['orderId'] = order.ordersn
         clothes_detail['name'] = order.customer_name
         clothes_detail['address'] = order.address
-        clothes_detail['time'] = order.created_at.strftime("%Y-%m-%d %H:%I:%S")
+        clothes_detail['time'] = order.created_at.strftime("%Y-%m-%d %H:%M:%S")
         clothes_detail['cloth'] = clothes
         clothes_detail['price'] = totalprice
         orders_detail.append(clothes_detail)
@@ -151,7 +151,7 @@ def get_order_by_ordersn(ordersn):
     order_detail['name'] = order.customer_name
     order_detail['phone'] = order.phone
     order_detail['address'] = order.address
-    order_detail['time'] = order.created_at.strftime("%Y-%m-%d %H:%I:%S")
+    order_detail['time'] = order.created_at.strftime("%Y-%m-%d %H:%M:%S")
     order_detail['cloth'] = clothes
     order_detail['price'] = totalprice
 

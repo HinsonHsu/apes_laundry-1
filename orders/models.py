@@ -16,7 +16,7 @@ class Order(models.Model):
     address = models.CharField(max_length=255, default="1")
     exp_date = models.DateTimeField()
     total_price = models.IntegerField()
-    target_station_id = models.IntegerField(null=True)
+    station_id = models.IntegerField(null=True)
     # 1 已下单 2 已接单 3 已确认 4 已支付 5 已取消
     status = models.IntegerField(null=True)
     city_id = models.IntegerField(null=True)

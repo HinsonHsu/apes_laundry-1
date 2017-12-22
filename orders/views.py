@@ -62,7 +62,7 @@ def index(request):
                 clothes_detail['order_ID'] = order.ordersn
                 clothes_detail['name'] = order.customer_name
                 clothes_detail['address_ID'] = order.address
-                clothes_detail['order_time'] = order.created_at.strftime("%Y-%m-%d %H:%I:%S")
+                clothes_detail['order_time'] = order.created_at.strftime("%Y-%m-%d %H:%M:%S")
                 clothes_detail['cloth'] = clothes
                 orders_detail.append(clothes_detail)
             res.append(orders_detail)

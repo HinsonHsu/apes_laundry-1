@@ -152,14 +152,15 @@ def upload(request):
         new_courier = Courier(name=name, phone=phone, workplace=address, idcard_url=f1_name, health_url= f2_name, latitude=latitude, longitude=longitude)
         new_courier.user_back_id = user.id
         new_courier.save()
-        return HttpResponse('upload ok')
+        return HttpResponseRedirect('/courier/personal/')
     return render(request, 'couriers/upload.html')
 
 @csrf_exempt
 @login_required_courier()
 def notAccepted_orders(request):
     if request.method == "GET":
-        orders = get_unaccepted_order()
+        city_id = Courier.objects.filter(user_back_id=request.user.id)[0].city_id
+        orders = get_unaccepted_order(city_id)
         return render(request, 'couriers/notAccept.html', {'orders': orders})
     if request.method == "POST":
         ordersn = request.POST['ordersn']
@@ -210,7 +211,7 @@ def orderDetail(request):
         order = Order.objects.filter(ordersn=ordersn)[0]
         from products.service import get_all_stations_by_city
         stations = get_all_stations_by_city(city_id=order.city_id)
-        order.target_station_id = stations[target_station_index]['id']
+        order.station_id = stations[target_station_index]['id']
         curOrder_items = Order_item.objects.filter(ordersn=ordersn)
         total_price = 0
         for i, order_item in enumerate(order_items):
