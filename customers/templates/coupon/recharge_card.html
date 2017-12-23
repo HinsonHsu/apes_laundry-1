@@ -1,0 +1,57 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>充值卡</title>
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+
+
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <link href="{% static 'coupon/css/recharge_card.css' %}" rel="stylesheet">
+    <script src="{% static 'coupon/js/recharge_card.js' %}"></script>
+    <script src="{% static 'coupon/js/recharge_card_data.js' %}"></script>
+
+</head>
+
+<body>
+<nav class="title-color title-text container-fluid">
+    <ul class="nav row">
+        <li class="col-xs-11">
+            <div class="back">
+                <a class="glyphicon glyphicon-menu-left" href="/customer/index/"></a>
+            </div>
+            <p class="nav-top">充值</p>
+        </li>
+    </ul>
+</nav>
+
+<h2 class="card-p"> 请输入充值金额：</h2>
+<div class="form-group col-xs-12 .col-xs-offset-5">
+    <input type="text" class="form-control" placeholder="充值金额" aria-describedby="basic-addon1" value=""
+           onchange="moneyChanged(this.value);">
+    {% for i in customer_card_charge_setting %}
+        <div><label><input name="money" type="radio" value="{{ i.id }}" onclick="onRadioClick({{ i.id }})"/>满{{ i.min }} 送{{ i.money_give }} </label></div>
+    {% endfor %}
+    <div style="margin-top: 20px;font-size: 20px;">实际获得<span id="money_obtain" style="margin-left: 20px">0.0</span></div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="log_bt">
+            <button id="bind-btn" onclick="onCharge()" class="btn-public" style="opacity:0.8">立刻充值</button>
+        </div>
+    </div>
+</div>
+<script>
+    var customer_card_charge_setting = {{ cccs | safe }}
+</script>
+
+</body>
+
+</html>

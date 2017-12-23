@@ -5,7 +5,6 @@ var cart_data = []
 var totalPrice = 0
 $(document).ready(function () {
     calculateTotalPrice()
-
 })
 function calculateTotalPrice() {
     cart_data = JSON.parse(localStorage.getItem("cart_data"));

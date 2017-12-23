@@ -7,22 +7,35 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login as userlogin, logout as userlogout
-import json
+import json, datetime
 
 from users.models import User
 from aliyun_msg.aliyun_msg import send_phoneCode, verify_phoneCode
-from .models import CustomerAddress, Customer
+from .models import CustomerAddress, Customer, Coupon
 
+from .models import Customer_card, Customer_card_log, Customer_card_charge_settings
 
 # Create your views here.
-USER_TYPE = 1 #1 表示用户端
+USER_TYPE = 1  # 1 表示用户端
 USER_LABEL = "customer_"
+
+
 @login_required()
 def index(request):
     # print request.user.username
     username = request.user.username
     phone = username[9:]
-    return render(request,'customers/index.html',{"user_phone":phone})
+    c = Customer.objects.filter(user_back_id=request.user.id)[0]
+    customer_id = c.id;
+    customer_card = Customer_card.objects.filter(customer_id=customer_id)[0]
+    #优惠券数量
+    now = datetime.datetime.now()
+    start = now - datetime.timedelta(hours=23, minutes=59, seconds=59)
+    coupons = Coupon.objects.filter(customer_id=customer_id, valid_from__lt=start, used_at=None);
+    return render(request, 'customers/index.html',
+                  {"user_phone": phone, 'totalMoney': customer_card.real_money + customer_card.fake_money, 'couponNum': len(coupons)})
+
+
 @csrf_exempt
 def code(request):
     if request.method == "POST":
@@ -40,6 +53,7 @@ def code(request):
         res = json.dumps(result)
         return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
 
+
 @csrf_exempt
 def login(request):
     if request.method == "GET":
@@ -53,7 +67,7 @@ def login(request):
         if vc == 1:
             try:
                 user = User.objects.get(username=username);
-                userlogin(request,user)
+                userlogin(request, user)
                 result["result"] = "success"
             except User.DoesNotExist:
                 # result["errMsg"] = "手机号未注册用户，用户不存在，请先注册！"
@@ -67,6 +81,11 @@ def login(request):
                 customer.phone = phone
                 customer.user_back_id = user.id
                 customer.save()
+                customer_card = Customer_card()
+                customer_card.customer_id = customer.id
+                customer_card.real_money = 0
+                customer_card.fake_money = 0
+                customer_card.save()
                 userlogin(request, user)
                 result["result"] = "success"
         elif vc == 2:
@@ -80,6 +99,7 @@ def login(request):
             result["result"] = "fail"
         res = json.dumps(result)
         return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
+
 
 @csrf_exempt
 def register(request):
@@ -94,7 +114,7 @@ def register(request):
         if vc == 1:
             try:
                 user = User.objects.get(username=username);
-                userlogin(request,user)
+                userlogin(request, user)
                 result["result"] = "success"
             except User.DoesNotExist:
                 # result["errMsg"] = "手机号未注册用户，用户不存在，请先注册！"
@@ -108,6 +128,13 @@ def register(request):
                 customer.phone = phone
                 customer.user_back_id = user.id
                 customer.save()
+                # 注册地用户会员卡
+                customer_card = Customer_card()
+                customer_card.customer_id = customer.id
+                customer_card.real_money = 0
+                customer_card.fake_money = 0
+                customer_card.save()
+
                 userlogin(request, user)
                 result["result"] = "success"
         elif vc == 2:
@@ -122,21 +149,24 @@ def register(request):
         res = json.dumps(result)
         return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
 
+
 @csrf_exempt
 def logout(request):
     userlogout(request)
     return HttpResponseRedirect('/customers/login/')
 
+
 @csrf_exempt
 def test(request):
-    return render(request,"customers/test.html")
+    return render(request, "customers/test.html")
+
 
 @csrf_exempt
 def address(request):
     if request.method == "POST":
         name = request.POST.get('name')
         phone = request.POST.get('phone')
-        address  = request.POST.get('address')
+        address = request.POST.get('address')
         door_number = request.POST.get('door_number')
         # sex = request.POST.get('sex')
         sex = True
@@ -148,16 +178,17 @@ def address(request):
             customer_address.sex = sex
             customer_address.save()
         except IndexError:
-            customer_address = CustomerAddress(name=name, phone=phone, address=address, door_number=door_number, sex=sex)
+            customer_address = CustomerAddress(name=name, phone=phone, address=address, door_number=door_number,
+                                               sex=sex)
             customer_address.user_id = request.user.id
             customer_address.save()
 
         return HttpResponseRedirect('/customer/index/')
     if request.method == "GET":
         user_id = request.user.id
-        l =  CustomerAddress.objects.filter(user_id=user_id)
+        l = CustomerAddress.objects.filter(user_id=user_id)
         res = {}
-        if len(l)> 0 :
+        if len(l) > 0:
             cuAddress = l[0]
             res['result'] = "sucess"
             res['name'] = cuAddress.name
@@ -165,7 +196,9 @@ def address(request):
             res['address'] = cuAddress.address
             res['door_number'] = cuAddress.door_number
         res = json.dumps(res)
-        return render(request, 'customers/address.html',{"res":res})
+        return render(request, 'customers/address.html', {"res": res})
+
+
 @csrf_exempt
 def customer_address(request):
     user_id = request.user.id
@@ -174,11 +207,12 @@ def customer_address(request):
     res['result'] = "sucess"
     res['name'] = cuAddress.name
     res['phone'] = cuAddress.phone
-    res['address'] =cuAddress.address
+    res['address'] = cuAddress.address
     res['door_number'] = cuAddress.door_number
     res = json.dumps(res)
     print res.decode("unicode-escape")
     return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
+
 
 def my_login(request):
     # err_msg = {}
@@ -219,4 +253,100 @@ def my_login(request):
     #         err_msg['error'] = "验证码错误!"
 
     # return render(request,'login.html',{"filename":random_filename, "today_str":today_str, "error":err_msg})
-    return render(request,'customers/my_login.html')
+    return render(request, 'customers/my_login.html')
+
+
+def coupon(request):
+    if request.method == 'GET':
+        customer_id = Customer.objects.filter(user_back_id=request.user.id)[0].id
+        unUseCouponList = []
+        usedCouponList = []
+        expiredCouponList = []
+        try:
+            coupons = Coupon.objects.filter(customer_id=customer_id)
+            now = datetime.date.today()
+            for i in coupons:
+                cp = {}
+                cp['id'] = i.id
+                cp['start_time'] = i.valid_from.strftime("%Y-%m-%d %H:%M:%S")
+                cp['end_time'] = i.valid_to.strftime("%Y-%m-%d %H:%M:%S")
+                cp['customer_id'] = i.customer_id
+                cp['face_value'] = i.discount
+                cp['lump_sum'] = i.premise
+                if now > i.valid_to:
+                    expiredCouponList.append(cp)
+                elif i.used_at == None:
+                    unUseCouponList.append(cp)
+                else:
+                    usedCouponList.append(cp)
+        except IndexError as e:
+            print e
+        res = {}
+        res['unUseCouponList'] = unUseCouponList
+        res['usedCouponList'] = usedCouponList
+        res['expiredCouponList'] = expiredCouponList
+
+        return render(request, 'coupon/coupon1.html', {'coupons': json.dumps(res)})
+
+
+def recharge(request):
+    if request.method == 'GET':
+
+        cccss = Customer_card_charge_settings.objects.all();
+        customer_card_charge_setting = []
+        i = 0
+        for cccs in cccss:
+            temp = {}
+            temp['id'] = i
+            temp['min'] = cccs.min;
+            temp['money_give'] = cccs.money_give;
+            customer_card_charge_setting.append(temp);
+        return render(request, 'coupon/recharge_card.html',
+                      {'customer_card_charge_setting': customer_card_charge_setting,
+                       'cccs': json.dumps(customer_card_charge_setting)})
+    if request.method == 'POST':
+        c = Customer.objects.filter(user_back_id=request.user.id)[0]
+        customer_id = c.id;
+        real_money = request.POST['real_money']
+        fake_money = request.POST['fake_money']
+        real_money = float(real_money)
+        fake_money = float(fake_money)
+
+        customer_card = Customer_card.objects.filter(customer_id=customer_id)[0]
+        customer_card.real_money += real_money;
+        customer_card.fake_money += fake_money;
+        customer_card.save();
+        customer_card_log = Customer_card_log();
+        customer_card_log.kind = 3;
+        customer_card_log.real_money = real_money;
+        customer_card_log.fake_money = fake_money;
+        customer_card_log.loggable_type = "Customer"
+        customer_card_log.loggable_id = 3
+        customer_card_log.user_card_id = customer_card.id
+        customer_card_log.save();
+        result = {}
+        result['code'] = 0
+        res = json.dumps(result)
+        return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
+
+def certificate(request):
+    if request.method == 'GET':
+        return render(request, 'coupon/certificate.html')
+    if request.method == 'POST':
+        customer_id = Customer.objects.filter(user_back_id=request.user.id)[0].id
+        cdkey = request.POST['cdkey']
+        result = {}
+        try:
+            coupons = Coupon.objects.filter(id=cdkey, is_active=1, customer_id=None)[0];
+            coupons.customer_id = customer_id
+            coupons.save()
+
+            result['code'] = 0
+        except IndexError as e:
+            result['code'] = 1
+            result['errMsg'] = u'序列号有误，请重试!'
+        res = json.dumps(result)
+        return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
+
+
+

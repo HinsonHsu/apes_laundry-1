@@ -1,0 +1,191 @@
+p {
+    padding-bottom: 10px;
+}
+
+.title-color {
+    background-color: #25ADFA;
+}
+
+.title-text p {
+    color: #ffffff;
+    font-size: 20px;
+    z-index: 1;
+}
+
+.back {
+    float: left;
+    margin-top: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.nav-top,
+.nav-btn {
+    text-align: center;
+    padding: 0px !important;
+    height: 50px;
+    line-height: 50px;
+}
+
+.Grid {
+    display: flex;
+}
+
+.Grid-cell.u-1of3 {
+    flex: 0 0 33.33333%;
+}
+
+.nav-btn {
+    text-align: center;
+    padding: 0px !important;
+    height: 50px;
+    line-height: 50px;
+}
+
+.stamp {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 300px;
+    height: 120px;
+    padding: 0 10px;
+    position: relative;
+}
+
+.stamp:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    z-index: -1;
+}
+
+.stamp:after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.5);
+    z-index: -2;
+}
+
+.stamp .par {
+    float: left;
+    padding: 16px 15px;
+    width: 200px;
+    border-right: 2px dashed rgba(255, 255, 255, .3);
+    text-align: left;
+}
+
+.stamp .par p {
+    color: #fff;
+    margin-top: -10px;
+    margin-bottom: -3px;
+}
+
+.stamp .par span {
+    font-size: 40px;
+    color: #fff;
+    margin-right: 5px;
+}
+
+.stamp .par .sign {
+    font-size: 34px;
+}
+
+.stamp .par sub {
+    top: -5px;
+    color: rgba(255, 255, 255, .8);
+}
+
+.stamp .copy {
+    display: inline-block;
+    padding: 21px 14px;
+    width: 120px;
+    vertical-align: text-bottom;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+}
+
+.stamp .copy p {
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+.stamp04 {
+    width: 360px;
+    background: #50ADD3;
+    background: radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 4px, #50ADD3 4px);
+    background-size: 12px 8px;
+    background-position: -5px 10px;
+}
+
+.stamp04:before {
+    background-color: #50ADD3;
+    left: 5px;
+    right: 5px;
+}
+
+.stamp04 .copy {
+    padding: 10px 6px 10px 12px;
+    font-size: 24px;
+}
+
+.stamp04 .copy p {
+    font-size: 10px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+.stamp03 {
+    width: 360px;
+    background: rgb(129, 201, 230);
+    background: radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 4px, rgb(129, 201, 230) 4px);
+    background-size: 12px 8px;
+    background-position: -5px 10px;
+}
+
+.stamp03:before {
+    background-color: rgb(129, 201, 230);
+    left: 5px;
+    right: 5px;
+}
+
+.stamp03 .copy {
+    padding: 10px 6px 10px 12px;
+    font-size: 24px;
+}
+
+.stamp03 .copy p {
+    font-size: 10px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+.stamp02 {
+    width: 360px;
+    background: rgb(164, 166, 167);
+    background: radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 4px, rgb(164, 166, 167) 4px);
+    background-size: 12px 8px;
+    background-position: -5px 10px;
+}
+
+.stamp02:before {
+    background-color: rgb(164, 166, 167);
+    left: 5px;
+    right: 5px;
+}
+
+.stamp02 .copy {
+    padding: 10px 6px 10px 12px;
+    font-size: 24px;
+}
+
+.stamp02 .copy p {
+    font-size: 10px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+}

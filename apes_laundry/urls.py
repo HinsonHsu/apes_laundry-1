@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^courier/', include('couriers.urls')),
     url(r'^products/', include('products.urls')),
     url(r'^orders/', include('orders.urls')),
-
+    url(r'^angular/', include('angular.urls'))
 ]

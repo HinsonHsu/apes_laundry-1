@@ -11,7 +11,10 @@ urlpatterns = [
     url(r'^address/$', views.address, name='address'),
     url(r'^customer_address/$', views.customer_address, name='customer_address'),
 
-
     url(r'^my_login/$', views.my_login, name='my_test'),
     url(r'^test/$', views.test, name='test'),
+
+    url(r'^coupon/$', views.coupon, name='coupon'),
+    url(r'^recharge/$', views.recharge, name='recharge'),
+    url(r'^certificate/$', views.certificate, name='certificate'),
 ]

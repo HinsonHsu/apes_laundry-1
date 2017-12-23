@@ -1,0 +1,48 @@
+.back{
+    float: left;
+    margin-top: 20px;
+    z-index: 2;
+    position: relative;
+}
+.nav-top,
+.nav-btn {
+    text-align: center;
+    padding: 0px !important;
+    height: 50px;
+    line-height: 50px;
+}
+.title-color {
+    background-color: #25ADFA;
+}
+.title-text p {
+    color: #ffffff;
+    font-size: 20px;
+    z-index: 1;
+}
+.card-p{
+    margin-top: 30px;
+    margin-left: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+.form-group{
+  margin-top: 20px;
+}
+
+log_bt {
+    padding: 20px;
+    margin-top: 60px;
+}
+.btn-public {
+    border: 1px solid #25ADFA;
+    background: #25ADFA;
+    height: 42px;
+    color: #fff;
+    border-radius: 6px;
+    display: block;
+    line-height: 42px;
+    text-align: center;
+    width: 100%;
+    font-size: 1.1em;
+    margin-top: 20px;
+}

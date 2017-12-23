@@ -1,0 +1,93 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>优惠券</title>
+
+    <script src="{% static 'assets/jquery/jquery-3.1.1.min.js' %}"></script>
+
+
+    <link href="{% static 'assets/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'coupon/css/coupon.css' %}">
+
+    <script src="{% static 'coupon/js/coupondata.js' %}"></script>
+    <script src="{% static 'coupon/js/coupon.js' %}"></script>
+</head>
+
+<body>
+    <nav class="title-color title-text container-fluid">
+        <ul class="nav row">
+            <li class="col-xs-10">
+                <div class="back">
+                    <a class="glyphicon glyphicon-menu-left" href="/customer/index/"></a>
+                </div>
+                <p class="nav-top">优惠券</p>
+            </li>
+        </ul>
+    </nav>
+
+    <nav class="navbar navbar-default container-fluid " id="footer">
+
+        <div class="Grid">
+            <div class="Grid-cell u-1of3">
+                <a href="#" class="nav-btn">
+                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true" id="unaccept" onclick="unuse()">未使用</span>
+
+                </a>
+            </div>
+            <div class="Grid-cell u-1of3">
+                <a href="#" class="nav-btn">
+                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true" id="unpay" onclick="already_use()">已使用</span>
+
+                </a>
+            </div>
+            <div class="Grid-cell u-1of3">
+                <a href="#" class="nav-btn" id="nav2">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true" id="dealing" onclick="expire()">已过期</span>
+
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="coupon">
+    </div>
+
+    <!--  <div class="stamp stamp02">
+        <div class="par">
+            <sub class="sign">￥</sub>
+            <span>50.00</span>
+            <p>优惠券</p>
+            <p>订单满100.00元</p>
+        </div>
+        <div class="copy">副券
+            <p>2015-08-13
+                <br>2016-08-13</p>
+        </div>
+        <i></i>
+    </div>
+   <div class="stamp stamp04">
+        <div class="par">
+            <sub class="sign">￥</sub>
+            <span>50.00</span>
+            <p>优惠券</p>
+            <p>订单满100.00元</p>
+        </div>
+        <div class="copy">副券
+            <p>2015-08-13
+                <br>2016-08-13</p>
+        </div>
+        <i></i>
+    </div> -->
+<script>
+    var coupons = {{ coupons | safe }}
+    console.log(coupons)
+</script>
+</body>
+
+</html>
