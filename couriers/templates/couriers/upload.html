@@ -28,7 +28,8 @@
 
 
 <div class="register">
-    <div class="register-background" style="background: url({% static 'curiers/images/Hippocampus.png' %}) repeat-x center center;"></div>
+    <div class="register-background"
+         style="background: url({% static 'curiers/images/Hippocampus.png' %}) repeat-x center center;"></div>
 
     <form method="post" action="/courier/upload/" enctype="multipart/form-data">
         <div class="input-group form-group">
@@ -36,10 +37,20 @@
             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
         </span>
             <div id="l-map"></div>
-            <div id="r-result"><input type="text" class="form-control" placeholder="请输入工作地址" name="address" id="suggestId" size="20"
+            <div id="r-result"><input type="text" class="form-control" placeholder="请输入工作地址" name="address"
+                                      id="suggestId" size="20"
                                       value="百度" style="padding-right:0% "/></div>
             <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
         </div>
+        <div class="input-group form-group">
+            <select id="address-select" onchange="onCityChanged(this.value)" style="margin-left: 80%;margin-bottom: 10px">
+                {% for i in cities %}
+                    <option onclick="onCityChanged({{ i.id }})" value={{ i.id }}>{{ i.name }}</option>
+                {% endfor %}
+            </select>
+            <input id="city_id" name="city_id" type="text" style="display: None">
+        </div>
+
         <label style="font-size:18px">姓名</label>
         <div class="input-group form-group">
             <input id="name" name="name" type="text" class="form-control " style="padding-right:0% "/>

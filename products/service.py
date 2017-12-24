@@ -2,6 +2,10 @@
 from django.db import connections
 from .models import Categories, Categories_cities, Products, Price_rules, Prices
 
+def get_all_cities():
+    cursor = connections['aliyun'].cursor()
+    cursor.execute('select id, name from cities')
+    return dictfetchall(cursor)
 
 def get_all_stations_by_city(city_id):
     cursor = connections['aliyun'].cursor()
