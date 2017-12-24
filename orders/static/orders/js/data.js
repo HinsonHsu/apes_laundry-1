@@ -193,9 +193,10 @@ function show3(e) {
     $item.appendTo($('.discount'));
 
     $.each(unUseCouponList, function (i, data) {
-        var $item = $('<br /><label><input name="discount" type="radio" value=' + i + ' id =' + i + ' onclick ="full_reduce(' + data.id + ', ' + data.lump_sum + ', ' + data.face_value + ')"/>满' + data.lump_sum + '减' + data.face_value + '</label>');
-
-        $item.appendTo($('.discount'));
+        if (data.lump_sum <= total_price) {
+            var $item = $('<br /><label><input name="discount" type="radio" value=' + i + ' id =' + i + ' onclick ="full_reduce(' + data.id + ', ' + data.lump_sum + ', ' + data.face_value + ')"/>满' + data.lump_sum + '减' + data.face_value + '</label>');
+            $item.appendTo($('.discount'));
+        }
     })
     // $.each(couponData.unuse_data.data2, function (i, data) {
     //     var $item = $('<br /><label><input name="discount" type="radio" value='+ i +' id = '+ i +' onclick = "rebate(this)"/>' + data.face_value + '</label><label>')
@@ -211,7 +212,7 @@ function show3(e) {
     $item.appendTo($('.total_price'));
 }
 function full_reduce(id, sum, val) {
-    console.log(id + ' ' +sum + ' ' + val)
+    console.log(id + ' ' + sum + ' ' + val)
     if (total_price >= sum) {
         implicit_price = val
         coupon_id = id;

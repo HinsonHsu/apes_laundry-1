@@ -10,7 +10,7 @@ function calculateTotalPrice() {
     cart_data = JSON.parse(localStorage.getItem("cart_data"));
     for (var i = 0; i < cart_data.length; i++) {
         totalPrice += cart_data[i].amount * cart_data[i].price
-        var $item = $('<div class="order-item"> <div class="item-name">'+cart_data[i].name+'</div><div class="item-price">￥'+cart_data[i].price+'</div><div class="item-amount">数量 * '+cart_data[i].amount+'</div></div>')
+        var $item = $('<div class="order-item"> <div class="item-name">' + cart_data[i].name + '</div><div class="item-price">￥' + cart_data[i].price + '</div><div class="item-amount">数量 * ' + cart_data[i].amount + '</div></div>')
         $item.appendTo($("#order-items"))
     }
     $("#total-price").text(totalPrice)
@@ -26,10 +26,13 @@ function make_order() {
         dataType: 'json',
         success: function (res) {
             console.log("receive:" + res);
-            if (res.code == 1) {
+            if (res.code == 0) {
                 alert("下单成功")
                 localStorage.removeItem('cart_data');
                 window.location.href = "/products/index/"
+            } else if (res.code == 1) {
+                alert("请先填写地址！")
+                window.location.href = "/products/address/"
             } else {
                 alert("下单失败")
                 alert(res.errMsg)

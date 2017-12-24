@@ -76,7 +76,7 @@ def index(request):
         try:
             now = datetime.datetime.now()
             start = now - datetime.timedelta(hours=23, minutes=59, seconds=59)
-            coupons = Coupon.objects.filter(customer_id=customer_id, valid_from__lt=start, used_at=None);
+            coupons = Coupon.objects.filter(customer_id=customer_id, valid_to__gt=start, used_at=None);
             for i in coupons:
                 cp = {}
                 cp['id'] = i.id
@@ -130,15 +130,18 @@ def make_order(request):
         order.total_price = total_price
         order.city_id = city_id
         order.status = 1
-        customer_address = CustomerAddress.objects.filter(user_id=request.user.id)[0]
-        order.customer_name = customer_address.name
-        order.phone = customer_address.phone
-        order.address = customer_address.address + " " + customer_address.door_number
-        delta = datetime.timedelta(minutes=30)  # 30分钟后过期
-        order.exp_date = timezone.now() + delta
-        order.save()
         result = {}
-        result['code'] = 1
+        try:
+            customer_address = CustomerAddress.objects.filter(user_id=request.user.id)[0]
+            order.customer_name = customer_address.name
+            order.phone = customer_address.phone
+            order.address = customer_address.address + " " + customer_address.door_number
+            delta = datetime.timedelta(minutes=30)  # 30分钟后过期
+            order.exp_date = timezone.now() + delta
+            order.save()
+            result['code'] = 0
+        except IndexError as e:
+            result['code'] = 1 # 用户地址未填写
         res = json.dumps(result)
         print res.decode("unicode-escape")
         return HttpResponse(res.decode("unicode-escape"), content_type="application/json")

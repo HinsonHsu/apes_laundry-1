@@ -31,7 +31,8 @@ def index(request):
     #优惠券数量
     now = datetime.datetime.now()
     start = now - datetime.timedelta(hours=23, minutes=59, seconds=59)
-    coupons = Coupon.objects.filter(customer_id=customer_id, valid_from__lt=start, used_at=None);
+    coupons = Coupon.objects.filter(customer_id=customer_id, valid_to__gt=start, used_at=None);
+    print len(coupons)
     return render(request, 'customers/index.html',
                   {"user_phone": phone, 'totalMoney': customer_card.real_money + customer_card.fake_money, 'couponNum': len(coupons)})
 
@@ -337,8 +338,9 @@ def certificate(request):
         cdkey = request.POST['cdkey']
         result = {}
         try:
-            coupons = Coupon.objects.filter(id=cdkey, is_active=1, customer_id=None)[0];
+            coupons = Coupon.objects.filter(id=cdkey, customer_id=None)[0];
             coupons.customer_id = customer_id
+            coupons.is_active = 1
             coupons.save()
 
             result['code'] = 0
