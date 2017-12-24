@@ -187,7 +187,7 @@ def pay_order(request):
                 customer_card.real_money = 0
             customer_card.save();
             customer_card_log = Customer_card_log();
-            customer_card_log.kind = 3;
+            customer_card_log.kind = 2;
             customer_card_log.real_money = real_pay_money;
             customer_card_log.fake_money = fake_pay_money;
             customer_card_log.loggable_type = "Customer"
