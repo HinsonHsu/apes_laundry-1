@@ -6,7 +6,7 @@ import json
 
 def get_unaccepted_order(city_id):
     # 未接单信息
-    orders = Order.objects.filter(status=1,city_id=city_id).order_by("-updated_at")
+    orders = Order.objects.filter(status=1, city_id=city_id).order_by("-updated_at")
     orders_detail = []
     i = 0
     totalprice = 0
@@ -71,8 +71,9 @@ def get_complete_order_by_courier_id(courier_id):
     orders = Order.objects.filter(status=4, courier_id=courier_id).order_by("-updated_at")
     orders_detail = []
     i = 0
-    totalprice = 0
+
     for order in orders:
+        totalprice = 0
         order_items = Order_item.objects.filter(ordersn=order.ordersn)
         clothes_detail = {}
         clothes = []
@@ -95,6 +96,8 @@ def get_complete_order_by_courier_id(courier_id):
         clothes_detail['price'] = totalprice
         orders_detail.append(clothes_detail)
     return json.dumps(orders_detail)
+
+
 def get_order_by_ordersn(ordersn):
     order = Order.objects.filter(ordersn=ordersn)[0]
     city_id = order.city_id

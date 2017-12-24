@@ -271,6 +271,10 @@ function disappear() {
     $('.item_bar').empty();
     $('.discount').empty();
     $('.total_price').empty();
+    flag = 0;
+    total_price = 0;
+    coupon_id = -1;
+    implicit_price = 0;
 }
 function pay_order(ordersn) {
     alert("pay order:" + ordersn)
