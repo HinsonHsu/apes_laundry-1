@@ -7,9 +7,11 @@ import json, math, time, random, datetime
 from customers.models import CustomerAddress
 
 from django.utils import timezone
-CUSTOMER_ID = 6
-def getCompletedOrders():
-    customer_id = CUSTOMER_ID  # customer_18813090664
+
+
+
+
+def getCompletedOrders(customer_id):
     orders = Order.objects.filter(customer_id=customer_id, status=4).order_by("-updated_at")
     orders_detail = []
     for order in orders:
@@ -36,8 +38,8 @@ def getCompletedOrders():
         orders_detail.append(clothes_detail)
     return orders_detail
 
-def getUnCompletedOrders():
-    customer_id = CUSTOMER_ID  # customer_18813090664
+
+def getUnCompletedOrders(customer_id):
     orders = Order.objects.filter(customer_id=customer_id, status=1).order_by("-updated_at")
     orders_detail = []
     for order in orders:
@@ -64,6 +66,7 @@ def getUnCompletedOrders():
         orders_detail.append(clothes_detail)
     return orders_detail
 
+
 def get_order_by_ordersn(ordersn):
     order = Order.objects.filter(ordersn=ordersn)[0]
     totalprice = 0
@@ -87,6 +90,7 @@ def get_order_by_ordersn(ordersn):
     order_detail['orderPrice'] = totalprice;
     order_detail['orderProducts'] = clothes
     return order_detail
+
 
 def make_order(user_id, jsonStr):
     user_back_id = user_id
@@ -119,3 +123,60 @@ def make_order(user_id, jsonStr):
     result = {}
     result['code'] = 0
     return result;
+
+
+def isLogined(request):
+    ua = request.META.get('HTTP_Authorization')
+    if not ua:
+        return False
+    else:
+        return True
+
+
+def login_angular(request):
+    from aliyun_msg.aliyun_msg import verify_phoneCode
+    from users.models import User
+    from customers.models import Customer, Customer_card
+    USER_TYPE = 1  # 1 表示用户端
+    USER_LABEL = "customer_"
+    received_json_data = json.loads(request.body)
+    phone = received_json_data.get("phone")
+    username = USER_LABEL + phone
+    code = received_json_data.get("checkCode")
+    vc = verify_phoneCode(phone=phone, code=code, type=USER_TYPE)
+    result = {}
+    if vc == 1:
+        try:
+            user = User.objects.get(username=username);
+            result["code"] = 0
+            result['authorization'] = phone
+        except User.DoesNotExist:
+            # result["errMsg"] = "手机号未注册用户，用户不存在，请先注册！"
+            # result["result"] = "fail"
+            user = User(username=username);
+            user.set_password(username)
+            user.is_active = 1
+            user.save()
+            # 注册用户信息
+            customer = Customer(name=username)
+            customer.phone = phone
+            customer.user_back_id = user.id
+            customer.save()
+            # 注册地用户会员卡
+            customer_card = Customer_card()
+            customer_card.customer_id = customer.id
+            customer_card.real_money = 0
+            customer_card.fake_money = 0
+            customer_card.save()
+            result["code"] = 0
+            result['authorization'] = phone
+    elif vc == 2:
+        result["errMsg"] = "验证码过期，请重新发送验证码！"
+        result["code"] = 2
+    elif vc == 3:
+        result["errMsg"] = "验证码错误，请输入正确的验证码！"
+        result["code"] = 3
+    elif vc == 4:
+        result["errMsg"] = "请先发送验证！"
+        result["code"] = 4
+    return result

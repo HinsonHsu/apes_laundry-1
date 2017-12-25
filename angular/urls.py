@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^orderdetail/(\d+)$', views.orderDetail, name="orderdetail"),
     url(r'^useraddress/$', views.address, name="useraddress"),
     url(r'^makeorder/$', views.makeOrder, name="makeorder"),
+    url(r'^angular_code/$', views.angular_code, name="angular_code"),
+    url(r'^angluar_login/$', views.login_angluar_view, name="login_angluar"),
 ]
