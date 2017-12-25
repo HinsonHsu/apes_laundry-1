@@ -104,7 +104,7 @@ def address(request):
                                                sex=sex)
             customer_address.user_id = user_id
             customer_address.save()
-            result['code'] = 1
+            result['code'] = 0
         res = json.dumps(result)
         return HttpResponse(res.decode("unicode-escape"), content_type="application/json")
 
