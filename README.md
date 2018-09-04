@@ -9,7 +9,7 @@ mysql 系统数据库，采用Django orm 模型直接转换为mysql表
 阿里云短信服务器 注册需要用手机号进行验证码登陆
 
 # 模块划分
-aliyun_msg 阿里云短信
+aliyun_msg 阿里云短信<br/>
 angular 二次封住接口供angular 4构建的客户端使用
 apes_laundry 核心配置
 couriers 快递人员相关
